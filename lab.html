@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sheldon Global | Lab</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:rgba(255,255,255,.06);
+      --border:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
+      --accent:#ff6500;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:18px;
+      --max:900px;
+      --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 15% 15%, rgba(255,101,0,.18), transparent 60%),
+        radial-gradient(900px 500px at 85% 25%, rgba(92,225,212,.12), transparent 60%),
+        var(--bg);
+      min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none;}
+    .wrap{max-width:var(--max);margin:0 auto;padding:26px 18px 60px;}
+    header{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:14px;padding:10px 6px 22px;
+    }
+    .brand{display:flex;align-items:center;gap:12px;}
+    .logo-img{
+      width:40px;height:40px;border-radius:12px;object-fit:cover;
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.18);
+    }
+    .brand h1{font-size:16px;margin:0;letter-spacing:.5px;}
+    .brand p{margin:0;font-size:12px;color:var(--muted);}
+
+    nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
+    nav a{
+      font-size:13px;color:var(--muted);
+      padding:8px 10px;border-radius:10px;
+    }
+    nav a:hover{color:var(--text);background:rgba(255,255,255,.06);}
+
+    .panel{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+      backdrop-filter:blur(10px);
+    }
+    h2{margin:0 0 8px;font-size:22px;}
+    p{margin:0 0 14px;color:var(--muted);line-height:1.6;font-size:14px;}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:12px 14px;border-radius:12px;font-size:14px;
+      border:1px solid rgba(255,101,0,.45);
+      background:linear-gradient(135deg, rgba(255,101,0,.95), rgba(255,101,0,.55));
+      color:#000;
+      cursor:pointer;
+      user-select:none;
+    }
+    .note{
+      margin-top:14px;
+      font-size:12px;
+      color:var(--muted);
+      border-top:1px solid rgba(255,255,255,.10);
+      padding-top:12px;
+    }
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:12px;
+      color:rgba(255,255,255,.78);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <img class="logo-img" src="assets/sheldon_global_logo.png" alt="Sheldon Global logo" />
+        <div>
+          <h1>Sheldon Global</h1>
+          <p>Lab</p>
+        </div>
+      </div>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="panel">
+      <h2>Consent-based local lab</h2>
+      <p>
+        This page is intended for authorized, local-only testing on devices you own or have permission to test.
+        The consent lab runs on your local network.
+      </p>
+
+      <button class="btn" id="launch">Launch consent lab</button>
+
+      <div class="note">
+        Local URL:
+        <div class="mono">http://192.168.1.150:8000/consent.html</div>
+        This will only open successfully while you are on the same Wi-Fi/LAN as the Kali host.
+      </div>
+    </section>
+  </div>
+
+  <script>
+    document.getElementById("launch").addEventListener("click", () => {
+      window.open("http://192.168.1.150:8000/consent.html", "_blank", "noopener,noreferrer");
+    });
+  </script>
+</body>
+</html>
