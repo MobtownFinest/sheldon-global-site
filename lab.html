@@ -1,4 +1,3 @@
-<!-- lab.html -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -36,7 +35,7 @@
 
     header{
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       justify-content:space-between;
       gap:14px;
       padding:10px 6px 22px;
@@ -44,34 +43,51 @@
 
     .brand{
       display:flex;
-      align-items:center;
-      gap:14px;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:8px;
     }
 
-    /* WIDE LOGO FIX (1170x450) */
     .logo-img{
-      height:48px;
+      height:64px;
       width:auto;
-      max-width:220px;
+      max-width:420px;
       object-fit:contain;
-      filter: drop-shadow(0 10px 30px rgba(0,0,0,.45));
+      filter: drop-shadow(0 14px 44px rgba(0,0,0,.50));
     }
+    .tagline{
+      color:var(--muted);
+      font-size:12px;
+      letter-spacing:.3px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      margin-left:2px;
+    }
+    .tagline .pill{
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+      padding:6px 10px;
+      border-radius:999px;
+      line-height:1;
+      font-size:12px;
+    }
+
     @media (min-width:768px){
       .logo-img{
-        height:56px;
-        max-width:260px;
+        height:84px;
+        max-width:520px;
       }
     }
 
-    .brand h1{
-      font-size:17px;
-      margin:0;
-      letter-spacing:.5px;
-      line-height:1.1;
+    nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      padding-top:10px;
     }
-    .brand p{margin:0;font-size:12px;color:var(--muted);}
-
-    nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
     nav a{
       font-size:13px;
       color:var(--muted);
@@ -114,11 +130,21 @@
       border-top:1px solid rgba(255,255,255,.10);
       padding-top:12px;
     }
-
     .mono{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size:12px;
       color:rgba(255,255,255,.78);
+    }
+
+    footer{
+      margin-top:26px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:12px;
+      padding:0 6px;
     }
   </style>
 </head>
@@ -128,9 +154,10 @@
     <header>
       <div class="brand">
         <img class="logo-img" src="assets/sheldon_global_logo.png" alt="Sheldon Global logo" />
-        <div>
-          <h1>Sheldon Global</h1>
-          <p>Lab</p>
+        <div class="tagline" aria-label="Tagline">
+          <span class="pill">Healthcare IT</span>
+          <span class="pill">Integration</span>
+          <span class="pill">Interoperability</span>
         </div>
       </div>
 
@@ -156,9 +183,15 @@
         This will only open successfully while you are on the same Wi-Fi/LAN as the Kali host.
       </div>
     </section>
+
+    <footer>
+      <div>© <span id="y"></span> Sheldon Global</div>
+      <div>Healthcare IT • Integration • Interoperability • Data</div>
+    </footer>
   </div>
 
   <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
     document.getElementById("launch").addEventListener("click", () => {
       window.open("http://192.168.1.150:8000/consent.html", "_blank", "noopener,noreferrer");
     });
