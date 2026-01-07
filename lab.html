@@ -33,68 +33,75 @@
     a{color:inherit;text-decoration:none;}
     .wrap{max-width:var(--max);margin:0 auto;padding:26px 18px 60px;}
 
-    header{
+    /* ===== BRAND HEADER (BIG LOGO) ===== */
+    .site-header{
       display:flex;
-      align-items:flex-start;
       justify-content:space-between;
-      gap:14px;
-      padding:10px 6px 22px;
+      align-items:flex-start;
+      padding:30px 6px 40px;
+      gap:20px;
     }
-
-    .brand{
+    .brand-block{
       display:flex;
       flex-direction:column;
       align-items:flex-start;
-      gap:8px;
+      gap:16px;
+      min-width:260px;
     }
-
-    .logo-img{
-      height:64px;
+    .logo-hero{
+      height:120px;
       width:auto;
-      max-width:420px;
+      max-width:680px;
       object-fit:contain;
-      filter: drop-shadow(0 14px 44px rgba(0,0,0,.50));
+      filter: drop-shadow(0 20px 60px rgba(0,0,0,.55));
     }
-    .tagline{
-      color:var(--muted);
-      font-size:12px;
-      letter-spacing:.3px;
+    .tagline-row{
       display:flex;
+      gap:12px;
       flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
       margin-left:2px;
     }
-    .tagline .pill{
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.18);
-      padding:6px 10px;
+    .pill{
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(0,0,0,.25);
+      padding:8px 14px;
       border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.3px;
       line-height:1;
-      font-size:12px;
     }
 
-    @media (min-width:768px){
-      .logo-img{
-        height:84px;
-        max-width:520px;
-      }
-    }
-
-    nav{
+    .top-nav{
       display:flex;
-      gap:10px;
+      gap:14px;
       flex-wrap:wrap;
       justify-content:flex-end;
-      padding-top:10px;
+      padding-top:12px;
     }
-    nav a{
+    .top-nav a{
       font-size:13px;
       color:var(--muted);
       padding:8px 10px;
       border-radius:10px;
     }
-    nav a:hover{color:var(--text);background:rgba(255,255,255,.06);}
+    .top-nav a:hover{
+      color:var(--text);
+      background:rgba(255,255,255,.06);
+    }
+
+    @media (max-width:900px){
+      .site-header{
+        flex-direction:column;
+        align-items:flex-start;
+        padding:22px 6px 24px;
+      }
+      .logo-hero{
+        height:96px;
+        max-width:100%;
+      }
+      .top-nav{padding-top:4px;}
+    }
 
     .panel{
       background:var(--card);
@@ -151,17 +158,18 @@
 
 <body>
   <div class="wrap">
-    <header>
-      <div class="brand">
-        <img class="logo-img" src="assets/sheldon_global_logo.png" alt="Sheldon Global logo" />
-        <div class="tagline" aria-label="Tagline">
+
+    <header class="site-header">
+      <div class="brand-block">
+        <img class="logo-hero" src="assets/sheldon_global_logo.png" alt="Sheldon Global logo" />
+        <div class="tagline-row">
           <span class="pill">Healthcare IT</span>
           <span class="pill">Integration</span>
           <span class="pill">Interoperability</span>
         </div>
       </div>
 
-      <nav>
+      <nav class="top-nav">
         <a href="index.html">Home</a>
         <a href="index.html#services">Services</a>
         <a href="index.html#contact">Contact</a>
