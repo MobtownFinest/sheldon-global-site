@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -37,32 +38,68 @@
     .wrap{max-width:var(--max);margin:0 auto;padding:26px 18px 80px;}
 
     header{
-      display:flex;align-items:center;justify-content:space-between;
-      gap:14px;padding:10px 6px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:10px 6px 22px;
     }
 
-    .brand{display:flex;align-items:center;gap:12px;min-width:260px;}
-    .logo-img{
-      width:42px;height:42px;border-radius:12px;object-fit:cover;
-      box-shadow:0 10px 30px rgba(0,0,0,.35);
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(0,0,0,.18);
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-width:260px;
     }
-    .brand h1{font-size:16px;margin:0;letter-spacing:.5px;}
-    .brand p{margin:0;font-size:12px;color:var(--muted);}
+
+    /* WIDE LOGO FIX (1170x450) */
+    .logo-img{
+      height:48px;
+      width:auto;
+      max-width:220px;
+      object-fit:contain;
+      filter: drop-shadow(0 10px 30px rgba(0,0,0,.45));
+    }
+    @media (min-width:768px){
+      .logo-img{
+        height:56px;
+        max-width:260px;
+      }
+    }
+
+    .brand h1{
+      font-size:17px;
+      margin:0;
+      letter-spacing:.5px;
+      line-height:1.1;
+    }
+    .brand p{
+      margin:0;
+      font-size:12px;
+      color:var(--muted);
+    }
 
     nav{
-      display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
     }
     nav a{
-      font-size:13px;color:var(--muted);
-      padding:8px 10px;border-radius:10px;
+      font-size:13px;
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:10px;
     }
     nav a:hover{color:var(--text);background:rgba(255,255,255,.06);}
 
     .hero{
-      display:grid;grid-template-columns:1.15fr .85fr;
-      gap:18px;align-items:stretch;margin-top:6px;
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:18px;
+      align-items:stretch;
+      margin-top:6px;
     }
 
     .panel{
@@ -75,33 +112,46 @@
     }
 
     .kicker{
-      display:inline-flex;gap:10px;align-items:center;
-      font-size:12px;color:var(--muted);
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      font-size:12px;
+      color:var(--muted);
       border:1px solid var(--border);
       border-radius:999px;
       padding:6px 12px;
       background:rgba(0,0,0,.15);
     }
     .dot{
-      width:8px;height:8px;border-radius:999px;
+      width:8px;
+      height:8px;
+      border-radius:999px;
       background:var(--accent2);
       box-shadow:0 0 0 4px rgba(92,225,212,.15);
     }
 
     .hero h2{
       margin:14px 0 10px;
-      font-size:36px;line-height:1.1;letter-spacing:-.6px;
+      font-size:36px;
+      line-height:1.1;
+      letter-spacing:-.6px;
     }
     .hero p{
       margin:0 0 18px;
       color:var(--muted);
-      font-size:15px;line-height:1.6;
+      font-size:15px;
+      line-height:1.6;
     }
 
     .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
     .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      padding:11px 14px;border-radius:12px;font-size:14px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:11px 14px;
+      border-radius:12px;
+      font-size:14px;
       border:1px solid var(--border);
       background:rgba(255,255,255,.06);
       color:var(--text);
@@ -116,11 +166,15 @@
     .btn:hover{filter:brightness(1.05);}
 
     .grid{
-      display:grid;grid-template-columns:repeat(3,1fr);
-      gap:14px;margin-top:16px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin-top:16px;
     }
     .tile{
-      padding:16px;border-radius:16px;border:1px solid var(--border);
+      padding:16px;
+      border-radius:16px;
+      border:1px solid var(--border);
       background:rgba(0,0,0,.12);
       min-height:106px;
     }
@@ -132,29 +186,44 @@
 
     .list{display:grid;gap:10px;margin-top:14px;}
     .item{
-      display:flex;gap:12px;padding:12px;border-radius:14px;
-      border:1px solid var(--border);background:rgba(0,0,0,.12);
+      display:flex;
+      gap:12px;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.12);
     }
     .badge{
-      width:34px;height:34px;border-radius:12px;
-      display:grid;place-items:center;
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
       background:rgba(92,225,212,.14);
       border:1px solid rgba(92,225,212,.24);
-      flex:0 0 auto;font-size:16px;
+      flex:0 0 auto;
+      font-size:16px;
     }
     .item .t strong{display:block;font-size:13px;margin-bottom:2px;}
     .item .t span{display:block;color:var(--muted);font-size:12px;line-height:1.45;}
 
     .small{
-      color:var(--muted);font-size:12px;margin-top:10px;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:10px;
       border-top:1px solid rgba(255,255,255,.10);
       padding-top:12px;
     }
 
     footer{
       margin-top:26px;
-      display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
-      color:var(--muted);font-size:12px;padding:0 6px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:12px;
+      padding:0 6px;
     }
 
     @media (max-width:900px){
@@ -253,7 +322,7 @@
             <div class="badge" aria-hidden="true">📄</div>
             <div class="t">
               <strong>Documentation that actually helps</strong>
-              <span>Simple, usable notes for ops, devs, and leadership—so you’re not the only one who knows.</span>
+              <span>Simple, usable notes for ops, devs, and leadership—so you're not the only one who knows.</span>
             </div>
           </div>
         </div>
