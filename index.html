@@ -10,7 +10,6 @@
     :root{
       --bg:#0b1220;
       --card:rgba(255,255,255,.06);
-      --card2:rgba(255,255,255,.045);
       --border:rgba(255,255,255,.12);
       --text:rgba(255,255,255,.92);
       --muted:rgba(255,255,255,.68);
@@ -70,42 +69,12 @@
       filter: drop-shadow(0 20px 60px rgba(0,0,0,.55));
     }
 
-    /* ==== TAGLINE: not buttons, but still pops ==== */
-    .tagline-line{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-left:2px;
-      margin-top:-6px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.10);
-      background:linear-gradient(90deg, rgba(0,0,0,.24), rgba(0,0,0,.10));
-      box-shadow: var(--glowB);
-      color:rgba(255,255,255,.78);
-      letter-spacing:.35px;
-      font-size:12.5px;
-      line-height:1;
-      user-select:none;
-      white-space:nowrap;
-    }
-    .tagline-line .sep{
-      width:6px;height:6px;border-radius:99px;
-      background:rgba(92,225,212,.95);
-      box-shadow:0 0 0 4px rgba(92,225,212,.12), 0 0 14px rgba(92,225,212,.28);
-      opacity:.95;
-    }
-    .tagline-line span{
-      opacity:.95;
-      text-shadow:0 0 18px rgba(92,225,212,.18);
-    }
-
-    /* ===== NAV: “ship” glow links that scream clickable ===== */
+    /* ===== NAV: remove outline boxes; make glow/underline more prominent ===== */
     .top-nav{
       grid-column:2;
       grid-row:2;
       display:flex;
-      gap:12px;
+      gap:22px;
       flex-wrap:wrap;
       justify-content:flex-end;
       align-items:center;
@@ -116,53 +85,67 @@
 
     .top-nav a{
       position:relative;
-      font-size:13px;
-      color:rgba(255,255,255,.82);
-      padding:9px 12px;
-      border-radius:12px;
-
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(0,0,0,.18);
-
-      /* subtle always-on “click me” */
-      box-shadow: 0 0 0 1px rgba(255,255,255,.04), 0 10px 26px rgba(0,0,0,.22);
-      transition:transform .15s ease, filter .15s ease, box-shadow .15s ease, border-color .15s ease;
+      font-size:14px;
+      color:rgba(255,255,255,.84);
+      padding:8px 2px;               /* no “button” padding */
+      letter-spacing:.2px;
+      text-shadow:0 0 18px rgba(255,255,255,.06);
+      transition:filter .15s ease, transform .15s ease, color .15s ease;
     }
 
-    /* glow underline that feels like a nav rail */
+    /* glow behind each word */
+    .top-nav a::before{
+      content:"";
+      position:absolute;
+      left:-10px; right:-10px;
+      top:50%;
+      height:26px;
+      transform:translateY(-50%);
+      border-radius:999px;
+      background:radial-gradient(60% 90% at 50% 50%, rgba(92,225,212,.18), rgba(92,225,212,0) 70%);
+      opacity:.0;
+      filter:blur(.3px);
+      transition:opacity .15s ease;
+      pointer-events:none;
+    }
+
+    /* more prominent underline glow */
     .top-nav a::after{
       content:"";
       position:absolute;
-      left:10px; right:10px; bottom:6px;
+      left:-2px; right:-2px; bottom:2px;
       height:2px;
       border-radius:99px;
-      background:linear-gradient(90deg, rgba(92,225,212,0), rgba(92,225,212,.8), rgba(255,101,0,.65), rgba(255,101,0,0));
-      opacity:.25;
-      filter:blur(.2px);
-      transition:opacity .15s ease, transform .15s ease;
+      background:linear-gradient(90deg,
+        rgba(92,225,212,0),
+        rgba(92,225,212,.95),
+        rgba(255,101,0,.85),
+        rgba(255,101,0,0)
+      );
+      opacity:.30;
+      filter:drop-shadow(0 0 10px rgba(92,225,212,.18));
       transform:translateY(2px);
+      transition:opacity .15s ease, transform .15s ease;
+      pointer-events:none;
     }
 
     .top-nav a:hover{
       transform:translateY(-1px);
-      filter:brightness(1.06);
-      border-color:rgba(92,225,212,.28);
-      box-shadow: var(--glowB), 0 14px 34px rgba(0,0,0,.28);
+      filter:brightness(1.08);
+      color:rgba(255,255,255,.95);
     }
+    .top-nav a:hover::before{opacity:1;}
     .top-nav a:hover::after{
-      opacity:.85;
+      opacity:1;
       transform:translateY(0);
+      filter:
+        drop-shadow(0 0 14px rgba(92,225,212,.22))
+        drop-shadow(0 0 18px rgba(255,101,0,.18));
     }
 
-    /* optional: make Lab slightly “special” */
-    .top-nav a.lab{
-      border-color:rgba(255,101,0,.22);
-      box-shadow: var(--glowA), 0 12px 30px rgba(0,0,0,.26);
-    }
-    .top-nav a.lab::after{
-      background:linear-gradient(90deg, rgba(255,101,0,0), rgba(255,101,0,.9), rgba(92,225,212,.75), rgba(92,225,212,0));
-      opacity:.35;
-    }
+    /* subtle “active” if you ever add .is-active class */
+    .top-nav a.is-active::before{opacity:1;}
+    .top-nav a.is-active::after{opacity:1;transform:translateY(0);}
 
     @media (max-width:900px){
       .site-header{
@@ -175,9 +158,9 @@
       .top-nav{
         grid-column:1;grid-row:2;
         justify-content:flex-start;
+        gap:18px;
       }
       .logo-hero{height:164px;max-width:100%;}
-      .tagline-line{white-space:normal;flex-wrap:wrap;}
     }
 
     /* ===== MAIN LAYOUT ===== */
@@ -198,6 +181,7 @@
       backdrop-filter:blur(10px);
     }
 
+    /* Kicker line (existing) */
     .kicker{
       display:inline-flex;
       gap:10px;
@@ -213,6 +197,47 @@
       width:8px;height:8px;border-radius:999px;
       background:var(--accent2);
       box-shadow:0 0 0 4px rgba(92,225,212,.15);
+    }
+
+    /* Move the service tags down here, inherit the kicker vibe */
+    .kicker-stack{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:flex-start;
+      margin-bottom:4px;
+    }
+
+    .kicker-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-left:2px;
+    }
+
+    /* same family as kicker, but slightly “glow rail” */
+    .k-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      color:rgba(255,255,255,.75);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:999px;
+      padding:7px 12px;
+      background:linear-gradient(90deg, rgba(0,0,0,.22), rgba(0,0,0,.10));
+      box-shadow:0 0 0 1px rgba(255,255,255,.04), 0 0 22px rgba(92,225,212,.10);
+      user-select:none;
+    }
+    .k-tag .sep{
+      width:6px;height:6px;border-radius:99px;
+      background:rgba(92,225,212,.95);
+      box-shadow:0 0 0 4px rgba(92,225,212,.10), 0 0 14px rgba(92,225,212,.18);
+      opacity:.95;
+    }
+    .k-tag.alt .sep{
+      background:rgba(255,101,0,.95);
+      box-shadow:0 0 0 4px rgba(255,101,0,.10), 0 0 14px rgba(255,101,0,.18);
     }
 
     .hero h2{
@@ -303,10 +328,16 @@
       padding-top:12px;
     }
 
-    /* ===== CONTACT: same location, way less boring ===== */
+    /* ===== CONTACT: split into 2 contact blocks (Sean + Office) ===== */
     .contact-wrap{
       margin-top:10px;
       display:grid;
+      gap:10px;
+    }
+
+    .contact-grid-2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
       gap:10px;
     }
 
@@ -345,6 +376,11 @@
       flex:0 0 auto;
     }
 
+    .contact-title .beacon.orange{
+      background:linear-gradient(180deg, rgba(255,101,0,1), rgba(255,101,0,.45));
+      box-shadow:0 0 0 5px rgba(255,101,0,.10), 0 0 18px rgba(255,101,0,.20);
+    }
+
     .contact-cta{
       display:inline-flex;
       align-items:center;
@@ -359,6 +395,7 @@
       user-select:none;
       cursor:pointer;
       transition:transform .15s ease, filter .15s ease, box-shadow .15s ease;
+      white-space:nowrap;
     }
     .contact-cta:hover{
       transform:translateY(-1px);
@@ -366,7 +403,7 @@
       box-shadow: var(--glowA), 0 14px 34px rgba(0,0,0,.28);
     }
 
-    .contact-grid{
+    .contact-list{
       display:grid;
       gap:8px;
     }
@@ -416,6 +453,13 @@
       white-space:nowrap;
     }
 
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr;}
+      .grid{grid-template-columns:1fr;}
+      .hero h2{font-size:30px;}
+      .contact-grid-2{grid-template-columns:1fr;}
+    }
+
     footer{
       margin-top:26px;
       display:flex;
@@ -426,12 +470,6 @@
       font-size:12px;
       padding:0 6px;
     }
-
-    @media (max-width:900px){
-      .hero{grid-template-columns:1fr;}
-      .grid{grid-template-columns:1fr;}
-      .hero h2{font-size:30px;}
-    }
   </style>
 </head>
 
@@ -441,26 +479,28 @@
     <header class="site-header">
       <div class="brand-block">
         <img class="logo-hero" src="assets/sheldon_global_logo.png" alt="Sheldon Global logo" />
-
-        <!-- not “chips” anymore; reads like a premium tagline rail -->
-        <div class="tagline-line" aria-label="Sheldon Global tagline">
-          <span>IT Consulting</span><span class="sep" aria-hidden="true"></span>
-          <span>Architecture</span><span class="sep" aria-hidden="true"></span>
-          <span>Integration</span>
-        </div>
       </div>
 
       <nav class="top-nav" aria-label="Primary navigation">
         <a href="#services">Services</a>
         <a href="#approach">Approach</a>
-        <a class="lab" href="lab.html">Lab</a>
+        <a href="lab.html">Lab</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
 
     <section class="hero">
       <div class="panel">
-        <div class="kicker"><span class="dot"></span> Practical IT consulting for real-world systems</div>
+        <div class="kicker-stack">
+          <div class="kicker"><span class="dot"></span> Practical IT consulting for real-world systems</div>
+
+          <!-- moved tags here; no duplicate “IT Consulting” -->
+          <div class="kicker-tags" aria-label="Capabilities">
+            <div class="k-tag"><span class="sep" aria-hidden="true"></span><span>Architecture</span></div>
+            <div class="k-tag alt"><span class="sep" aria-hidden="true"></span><span>Integration</span></div>
+            <div class="k-tag"><span class="sep" aria-hidden="true"></span><span>Data & Automation</span></div>
+          </div>
+        </div>
 
         <h2>Build reliable, scalable, and secure platforms—without the chaos.</h2>
         <p>
@@ -534,51 +574,70 @@
         <div class="small" id="contact">
           Contact:
           <div class="contact-wrap">
-            <div class="contact-card">
-              <div class="contact-head">
-                <div class="contact-title">
-                  <span class="beacon" aria-hidden="true"></span>
-                  <span>Reach Sean</span>
-                </div>
+            <div class="contact-grid-2">
 
-                <a class="contact-cta" href="mailto:sean@sheldonglobal.org" aria-label="Email Sean">
-                  ✉️ <span>Email</span>
-                </a>
-              </div>
-
-              <div class="contact-grid">
-                <div class="contact-row">
-                  <div class="contact-ico" aria-hidden="true">👤</div>
-                  <div class="contact-text">
-                    <div class="label">Name</div>
-                    <div>Sean Sheldon</div>
+              <!-- Sean -->
+              <div class="contact-card">
+                <div class="contact-head">
+                  <div class="contact-title">
+                    <span class="beacon" aria-hidden="true"></span>
+                    <span>Sean Sheldon</span>
                   </div>
+                  <a class="contact-cta" href="mailto:sean@sheldonglobal.org" aria-label="Email Sean">
+                    ✉️ <span>Email</span>
+                  </a>
                 </div>
 
-                <div class="contact-row">
-                  <div class="contact-ico" aria-hidden="true">📧</div>
-                  <div class="contact-text">
-                    <div class="label">Primary email</div>
-                    <a href="mailto:sean@sheldonglobal.org">sean@sheldonglobal.org</a>
+                <div class="contact-list">
+                  <div class="contact-row">
+                    <div class="contact-ico" aria-hidden="true">📧</div>
+                    <div class="contact-text">
+                      <div class="label">Email</div>
+                      <a href="mailto:sean@sheldonglobal.org">sean@sheldonglobal.org</a>
+                    </div>
                   </div>
-                </div>
 
-                <div class="contact-row">
-                  <div class="contact-ico" aria-hidden="true">🧾</div>
-                  <div class="contact-text">
-                    <div class="label">General inbox</div>
-                    <a href="mailto:info@sheldonglobal.org">info@sheldonglobal.org</a>
-                  </div>
-                </div>
-
-                <div class="contact-row">
-                  <div class="contact-ico" aria-hidden="true">📞</div>
-                  <div class="contact-text">
-                    <div class="label">Phone</div>
-                    <a href="tel:+12512790777">251-279-0777</a>
+                  <div class="contact-row">
+                    <div class="contact-ico" aria-hidden="true">📞</div>
+                    <div class="contact-text">
+                      <div class="label">Phone</div>
+                      <a href="tel:+12512790777">251-279-0777</a>
+                    </div>
                   </div>
                 </div>
               </div>
+
+              <!-- Office -->
+              <div class="contact-card">
+                <div class="contact-head">
+                  <div class="contact-title">
+                    <span class="beacon orange" aria-hidden="true"></span>
+                    <span>Office</span>
+                  </div>
+                  <a class="contact-cta" href="mailto:info@sheldonglobal.org" aria-label="Email Office">
+                    ✉️ <span>Email</span>
+                  </a>
+                </div>
+
+                <div class="contact-list">
+                  <div class="contact-row">
+                    <div class="contact-ico" aria-hidden="true">🧾</div>
+                    <div class="contact-text">
+                      <div class="label">General inbox</div>
+                      <a href="mailto:info@sheldonglobal.org">info@sheldonglobal.org</a>
+                    </div>
+                  </div>
+
+                  <div class="contact-row">
+                    <div class="contact-ico" aria-hidden="true">🕒</div>
+                    <div class="contact-text">
+                      <div class="label">Response</div>
+                      <div>Typically within 1 business day</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
