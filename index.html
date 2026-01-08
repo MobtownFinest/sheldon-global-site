@@ -36,34 +36,40 @@
     a{color:inherit;text-decoration:none;}
     .wrap{max-width:var(--max);margin:0 auto;padding:26px 18px 80px;}
 
-    /* ===== BRAND HEADER (BIG LOGO) ===== */
+    /* ===== BRAND HEADER (TIGHTER + BALANCED) ===== */
     .site-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      padding:30px 6px 40px;
-      gap:20px;
+      display:grid;
+      grid-template-columns:auto 1fr;
+      align-items:start;
+      column-gap:28px;
+      padding:30px 6px 34px;
     }
+
     .brand-block{
       display:flex;
       flex-direction:column;
       align-items:flex-start;
-      gap:16px;
+      gap:10px;                 /* tighter than before */
       min-width:260px;
     }
+
     .logo-hero{
-      height:240px;            /* BIG */
+      height:204px;             /* 15% smaller than 240px */
       width:auto;
       max-width:1360px;
       object-fit:contain;
+      display:block;            /* removes any inline image baseline spacing quirks */
       filter: drop-shadow(0 20px 60px rgba(0,0,0,.55));
     }
+
     .tagline-row{
       display:flex;
       gap:12px;
       flex-wrap:wrap;
       margin-left:2px;
+      margin-top:-4px;          /* pulls pills closer to logo */
     }
+
     .pill{
       border:1px solid rgba(255,255,255,.18);
       background:rgba(0,0,0,.25);
@@ -80,7 +86,8 @@
       gap:14px;
       flex-wrap:wrap;
       justify-content:flex-end;
-      padding-top:12px;
+      align-self:flex-start;
+      padding-top:8px;          /* aligns better with logo */
     }
     .top-nav a{
       font-size:13px;
@@ -95,15 +102,15 @@
 
     @media (max-width:900px){
       .site-header{
-        flex-direction:column;
-        align-items:flex-start;
-        padding:22px 6px 24px;
+        grid-template-columns:1fr;
+        row-gap:12px;
+        padding:22px 6px 20px;
       }
       .logo-hero{
-        height:192px;
+        height:164px;           /* scaled down from 192px by ~15% */
         max-width:100%;
       }
-      .top-nav{padding-top:4px;}
+      .top-nav{padding-top:0;}
     }
 
     /* ===== MAIN LAYOUT ===== */
