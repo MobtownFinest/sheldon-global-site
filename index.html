@@ -10,6 +10,7 @@
     :root{
       --bg:#0b1220;
       --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.045);
       --border:rgba(255,255,255,.12);
       --text:rgba(255,255,255,.92);
       --muted:rgba(255,255,255,.68);
@@ -19,7 +20,11 @@
       --radius:18px;
       --max:1100px;
       --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+
+      --glowA: 0 0 0 1px rgba(255,101,0,.18), 0 0 28px rgba(255,101,0,.16);
+      --glowB: 0 0 0 1px rgba(92,225,212,.18), 0 0 28px rgba(92,225,212,.14);
     }
+
     *{box-sizing:border-box;}
     body{
       margin:0;
@@ -33,36 +38,31 @@
       min-height:100vh;
       overflow-x:hidden;
     }
+
     a{color:inherit;text-decoration:none;}
     .wrap{max-width:var(--max);margin:0 auto;padding:26px 18px 80px;}
 
-    /* ===== HEADER (NO DEAD ZONE) ===== */
+    /* ===== HEADER (BALANCED, NO DEAD ZONE) ===== */
     .site-header{
       display:grid;
       grid-template-columns:auto 1fr;
       grid-template-rows:auto auto;
       column-gap:28px;
-
-      /* key: reduce header “band” */
       padding:26px 6px 14px;
     }
 
     .brand-block{
       grid-column:1;
       grid-row:1 / span 2;
-
       display:flex;
       flex-direction:column;
       align-items:flex-start;
-
-      /* key: tighten logo->pills */
       gap:10px;
-
       min-width:260px;
     }
 
     .logo-hero{
-      height:204px; /* 15% smaller than 240px */
+      height:204px; /* 15% smaller */
       width:auto;
       max-width:1360px;
       object-fit:contain;
@@ -70,54 +70,98 @@
       filter: drop-shadow(0 20px 60px rgba(0,0,0,.55));
     }
 
-    .tagline-row{
+    /* ==== TAGLINE: not buttons, but still pops ==== */
+    .tagline-line{
       display:flex;
-      gap:12px;
-      flex-wrap:wrap;
+      align-items:center;
+      gap:10px;
       margin-left:2px;
-
-      /* key: close tiny gap */
-      margin-top:-4px;
-    }
-
-    .pill{
-      border:1px solid rgba(255,255,255,.18);
-      background:rgba(0,0,0,.25);
-      padding:8px 14px;
+      margin-top:-6px;
+      padding:8px 12px;
       border-radius:999px;
-      font-size:13px;
-      color:var(--muted);
-      letter-spacing:.3px;
+      border:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(90deg, rgba(0,0,0,.24), rgba(0,0,0,.10));
+      box-shadow: var(--glowB);
+      color:rgba(255,255,255,.78);
+      letter-spacing:.35px;
+      font-size:12.5px;
       line-height:1;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .tagline-line .sep{
+      width:6px;height:6px;border-radius:99px;
+      background:rgba(92,225,212,.95);
+      box-shadow:0 0 0 4px rgba(92,225,212,.12), 0 0 14px rgba(92,225,212,.28);
+      opacity:.95;
+    }
+    .tagline-line span{
+      opacity:.95;
+      text-shadow:0 0 18px rgba(92,225,212,.18);
     }
 
-    /* Nav sits on row 2 aligned with pills (not floating at the top) */
+    /* ===== NAV: “ship” glow links that scream clickable ===== */
     .top-nav{
       grid-column:2;
       grid-row:2;
-
       display:flex;
-      gap:14px;
+      gap:12px;
       flex-wrap:wrap;
       justify-content:flex-end;
       align-items:center;
-
-      /* key: pulls nav down to match pills baseline */
       align-self:end;
-
-      /* no extra padding creating empty area */
       padding:0;
       margin:0;
     }
+
     .top-nav a{
+      position:relative;
       font-size:13px;
-      color:var(--muted);
-      padding:8px 10px;
-      border-radius:10px;
+      color:rgba(255,255,255,.82);
+      padding:9px 12px;
+      border-radius:12px;
+
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
+
+      /* subtle always-on “click me” */
+      box-shadow: 0 0 0 1px rgba(255,255,255,.04), 0 10px 26px rgba(0,0,0,.22);
+      transition:transform .15s ease, filter .15s ease, box-shadow .15s ease, border-color .15s ease;
     }
+
+    /* glow underline that feels like a nav rail */
+    .top-nav a::after{
+      content:"";
+      position:absolute;
+      left:10px; right:10px; bottom:6px;
+      height:2px;
+      border-radius:99px;
+      background:linear-gradient(90deg, rgba(92,225,212,0), rgba(92,225,212,.8), rgba(255,101,0,.65), rgba(255,101,0,0));
+      opacity:.25;
+      filter:blur(.2px);
+      transition:opacity .15s ease, transform .15s ease;
+      transform:translateY(2px);
+    }
+
     .top-nav a:hover{
-      color:var(--text);
-      background:rgba(255,255,255,.06);
+      transform:translateY(-1px);
+      filter:brightness(1.06);
+      border-color:rgba(92,225,212,.28);
+      box-shadow: var(--glowB), 0 14px 34px rgba(0,0,0,.28);
+    }
+    .top-nav a:hover::after{
+      opacity:.85;
+      transform:translateY(0);
+    }
+
+    /* optional: make Lab slightly “special” */
+    .top-nav a.lab{
+      border-color:rgba(255,101,0,.22);
+      box-shadow: var(--glowA), 0 12px 30px rgba(0,0,0,.26);
+    }
+    .top-nav a.lab::after{
+      background:linear-gradient(90deg, rgba(255,101,0,0), rgba(255,101,0,.9), rgba(92,225,212,.75), rgba(92,225,212,0));
+      opacity:.35;
     }
 
     @media (max-width:900px){
@@ -127,22 +171,13 @@
         row-gap:12px;
         padding:22px 6px 12px;
       }
-
-      .brand-block{
-        grid-column:1;
-        grid-row:1;
-      }
-
+      .brand-block{grid-column:1;grid-row:1;}
       .top-nav{
-        grid-column:1;
-        grid-row:2;
+        grid-column:1;grid-row:2;
         justify-content:flex-start;
       }
-
-      .logo-hero{
-        height:164px; /* ~15% smaller than prior 192 */
-        max-width:100%;
-      }
+      .logo-hero{height:164px;max-width:100%;}
+      .tagline-line{white-space:normal;flex-wrap:wrap;}
     }
 
     /* ===== MAIN LAYOUT ===== */
@@ -151,10 +186,9 @@
       grid-template-columns:1.15fr .85fr;
       gap:18px;
       align-items:stretch;
-
-      /* key: pull cards upward to eliminate “header band” feel */
       margin-top:0;
     }
+
     .panel{
       background:var(--card);
       border:1px solid var(--border);
@@ -208,13 +242,14 @@
       color:var(--text);
       cursor:pointer;
       user-select:none;
+      transition:filter .15s ease, transform .15s ease;
     }
     .btn.primary{
       border-color:rgba(255,101,0,.45);
       background:linear-gradient(135deg, rgba(255,101,0,.95), rgba(255,101,0,.55));
       box-shadow:0 12px 40px rgba(255,101,0,.12);
     }
-    .btn:hover{filter:brightness(1.05);}
+    .btn:hover{filter:brightness(1.05);transform:translateY(-1px);}
 
     .grid{
       display:grid;
@@ -228,6 +263,12 @@
       border:1px solid var(--border);
       background:rgba(0,0,0,.12);
       min-height:106px;
+      transition:transform .15s ease, filter .15s ease, border-color .15s ease;
+    }
+    .tile:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.04);
+      border-color:rgba(255,255,255,.18);
     }
     .tile h3{margin:0 0 6px;font-size:14px;}
     .tile p{margin:0;font-size:13px;color:var(--muted);line-height:1.5;}
@@ -262,6 +303,119 @@
       padding-top:12px;
     }
 
+    /* ===== CONTACT: same location, way less boring ===== */
+    .contact-wrap{
+      margin-top:10px;
+      display:grid;
+      gap:10px;
+    }
+
+    .contact-card{
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(420px 140px at 12% 20%, rgba(92,225,212,.13), transparent 55%),
+        radial-gradient(420px 140px at 90% 30%, rgba(255,101,0,.12), transparent 55%),
+        rgba(0,0,0,.14);
+      box-shadow: 0 10px 30px rgba(0,0,0,.22);
+      padding:14px 14px 12px;
+    }
+
+    .contact-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .contact-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:12px;
+      color:rgba(255,255,255,.78);
+      letter-spacing:.35px;
+    }
+
+    .contact-title .beacon{
+      width:10px;height:10px;border-radius:99px;
+      background:linear-gradient(180deg, rgba(92,225,212,1), rgba(92,225,212,.45));
+      box-shadow:0 0 0 5px rgba(92,225,212,.10), 0 0 18px rgba(92,225,212,.22);
+      flex:0 0 auto;
+    }
+
+    .contact-cta{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
+      box-shadow: var(--glowA);
+      color:rgba(255,255,255,.86);
+      font-size:12px;
+      user-select:none;
+      cursor:pointer;
+      transition:transform .15s ease, filter .15s ease, box-shadow .15s ease;
+    }
+    .contact-cta:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.06);
+      box-shadow: var(--glowA), 0 14px 34px rgba(0,0,0,.28);
+    }
+
+    .contact-grid{
+      display:grid;
+      gap:8px;
+    }
+
+    .contact-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 10px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.14);
+      transition:transform .15s ease, filter .15s ease, border-color .15s ease;
+    }
+    .contact-row:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.05);
+      border-color:rgba(92,225,212,.20);
+    }
+
+    .contact-ico{
+      width:34px;height:34px;border-radius:12px;
+      display:grid;place-items:center;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 0 18px rgba(255,255,255,.06);
+      flex:0 0 auto;
+      font-size:16px;
+    }
+
+    .contact-text{
+      display:grid;
+      gap:2px;
+      min-width:0;
+    }
+    .contact-text .label{
+      font-size:11px;
+      color:rgba(255,255,255,.62);
+      letter-spacing:.25px;
+    }
+    .contact-text a,
+    .contact-text div{
+      font-size:13px;
+      color:rgba(255,255,255,.88);
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
     footer{
       margin-top:26px;
       display:flex;
@@ -287,17 +441,19 @@
     <header class="site-header">
       <div class="brand-block">
         <img class="logo-hero" src="assets/sheldon_global_logo.png" alt="Sheldon Global logo" />
-        <div class="tagline-row">
-          <span class="pill">IT Consulting</span>
-          <span class="pill">Architecture</span>
-          <span class="pill">Integration</span>
+
+        <!-- not “chips” anymore; reads like a premium tagline rail -->
+        <div class="tagline-line" aria-label="Sheldon Global tagline">
+          <span>IT Consulting</span><span class="sep" aria-hidden="true"></span>
+          <span>Architecture</span><span class="sep" aria-hidden="true"></span>
+          <span>Integration</span>
         </div>
       </div>
 
-      <nav class="top-nav">
+      <nav class="top-nav" aria-label="Primary navigation">
         <a href="#services">Services</a>
         <a href="#approach">Approach</a>
-        <a href="lab.html">Lab</a>
+        <a class="lab" href="lab.html">Lab</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
@@ -377,13 +533,56 @@
 
         <div class="small" id="contact">
           Contact:
-          <div style="margin-top:10px;display:grid;gap:6px;">
-            <div>Sean Sheldon</div>
-            <div><a href="mailto:sean@sheldonglobal.org">sean@sheldonglobal.org</a></div>
-            <div><a href="mailto:info@sheldonglobal.org">info@sheldonglobal.org</a></div>
-            <div><a href="tel:+12512790777">251-279-0777</a></div>
+          <div class="contact-wrap">
+            <div class="contact-card">
+              <div class="contact-head">
+                <div class="contact-title">
+                  <span class="beacon" aria-hidden="true"></span>
+                  <span>Reach Sean</span>
+                </div>
+
+                <a class="contact-cta" href="mailto:sean@sheldonglobal.org" aria-label="Email Sean">
+                  ✉️ <span>Email</span>
+                </a>
+              </div>
+
+              <div class="contact-grid">
+                <div class="contact-row">
+                  <div class="contact-ico" aria-hidden="true">👤</div>
+                  <div class="contact-text">
+                    <div class="label">Name</div>
+                    <div>Sean Sheldon</div>
+                  </div>
+                </div>
+
+                <div class="contact-row">
+                  <div class="contact-ico" aria-hidden="true">📧</div>
+                  <div class="contact-text">
+                    <div class="label">Primary email</div>
+                    <a href="mailto:sean@sheldonglobal.org">sean@sheldonglobal.org</a>
+                  </div>
+                </div>
+
+                <div class="contact-row">
+                  <div class="contact-ico" aria-hidden="true">🧾</div>
+                  <div class="contact-text">
+                    <div class="label">General inbox</div>
+                    <a href="mailto:info@sheldonglobal.org">info@sheldonglobal.org</a>
+                  </div>
+                </div>
+
+                <div class="contact-row">
+                  <div class="contact-ico" aria-hidden="true">📞</div>
+                  <div class="contact-text">
+                    <div class="label">Phone</div>
+                    <a href="tel:+12512790777">251-279-0777</a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
       </aside>
     </section>
 
