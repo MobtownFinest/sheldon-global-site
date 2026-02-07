@@ -1,3 +1,10 @@
+<!-- =========================
+  FILE: index.html (UPDATED)
+  - Fixes Contact section nesting
+  - Adds true 2-card Contact grid (Sean + Office)
+  - Uses contact-grid-2 to match CSS
+  - Adds smooth scrolling + optional active nav state
+========================= -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,6 +32,7 @@
     }
 
     *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
     body{
       margin:0;
       font-family:var(--font);
@@ -103,7 +111,7 @@
       transform:translateY(-50%);
       border-radius:999px;
       background:radial-gradient(60% 90% at 50% 50%, rgba(92,225,212,.18), rgba(92,225,212,0) 70%);
-      opacity:.0;
+      opacity:0;
       filter:blur(.3px);
       transition:opacity .15s ease;
       pointer-events:none;
@@ -328,7 +336,7 @@
       padding-top:12px;
     }
 
-    /* ===== CONTACT: split into 2 contact blocks (Sean + Office) ===== */
+    /* ===== CONTACT: 2 cards (Sean + Office) ===== */
     .contact-wrap{
       margin-top:10px;
       display:grid;
@@ -381,32 +389,7 @@
       box-shadow:0 0 0 5px rgba(255,101,0,.10), 0 0 18px rgba(255,101,0,.20);
     }
 
-    .contact-cta{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 10px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(0,0,0,.18);
-      box-shadow: var(--glowA);
-      color:rgba(255,255,255,.86);
-      font-size:12px;
-      user-select:none;
-      cursor:pointer;
-      transition:transform .15s ease, filter .15s ease, box-shadow .15s ease;
-      white-space:nowrap;
-    }
-    .contact-cta:hover{
-      transform:translateY(-1px);
-      filter:brightness(1.06);
-      box-shadow: var(--glowA), 0 14px 34px rgba(0,0,0,.28);
-    }
-
-    .contact-list{
-      display:grid;
-      gap:8px;
-    }
+    .contact-list{display:grid;gap:8px;}
 
     .contact-row{
       display:flex;
@@ -494,7 +477,6 @@
         <div class="kicker-stack">
           <div class="kicker"><span class="dot"></span> Practical IT consulting for real-world systems</div>
 
-          <!-- moved tags here; no duplicate “IT Consulting” -->
           <div class="kicker-tags" aria-label="Capabilities">
             <div class="k-tag"><span class="sep" aria-hidden="true"></span><span>Architecture</span></div>
             <div class="k-tag alt"><span class="sep" aria-hidden="true"></span><span>Integration</span></div>
@@ -528,11 +510,11 @@
           </div>
         </div>
 
-          <div class="small" id="approach">
-            <div class="tile">
-                <p><strong style="color: white;">Approach:</strong> quick discovery to understand the real problem → a lightweight, opinionated plan grounded in practical constraints → execution in small, testable increments with constant validation → clear handoff with diagrams, documentation, and next-step recommendations so teams can move forward confidently.</p>
-            </div> 
+        <div class="small" id="approach">
+          <div class="tile">
+            <p><span style="color: white; font-weight:600;">Approach:</span> quick discovery to understand the real problem → a lightweight, opinionated plan grounded in practical constraints → execution in small, testable increments with constant validation → clear handoff with diagrams, documentation, and next-step recommendations so teams can move forward confidently.</p>
           </div>
+        </div>
       </div>
 
       <aside class="panel side">
@@ -576,7 +558,7 @@
         <div class="small" id="contact">
           Contact:
           <div class="contact-wrap">
-            <div class="contact-grid-1">
+            <div class="contact-grid-2">
 
               <!-- Sean -->
               <div class="contact-card">
@@ -586,6 +568,7 @@
                     <span>Sean Sheldon</span>
                   </div>
                 </div>
+
                 <div class="contact-list">
                   <div class="contact-row">
                     <div class="contact-ico" aria-hidden="true">📞</div>
@@ -594,6 +577,7 @@
                       <a href="tel:+12512790777">251-279-0777</a>
                     </div>
                   </div>
+
                   <div class="contact-row">
                     <div class="contact-ico" aria-hidden="true">📧</div>
                     <div class="contact-text">
@@ -601,7 +585,19 @@
                       <a href="mailto:sean@sheldonglobal.org">sean@sheldonglobal.org</a>
                     </div>
                   </div>
+                </div>
+              </div>
 
+              <!-- Office -->
+              <div class="contact-card">
+                <div class="contact-head">
+                  <div class="contact-title">
+                    <span class="beacon" aria-hidden="true"></span>
+                    <span>Office</span>
+                  </div>
+                </div>
+
+                <div class="contact-list">
                   <div class="contact-row">
                     <div class="contact-ico" aria-hidden="true">🧾</div>
                     <div class="contact-text">
@@ -609,7 +605,8 @@
                       <a href="mailto:info@sheldonglobal.org">info@sheldonglobal.org</a>
                     </div>
                   </div>
-                   <div class="contact-row">
+
+                  <div class="contact-row">
                     <div class="contact-ico" aria-hidden="true">🕒</div>
                     <div class="contact-text">
                       <div class="label">Response</div>
@@ -618,8 +615,9 @@
                   </div>
                 </div>
               </div>
-                </div>
-              </div>
+
+            </div>
+          </div>
         </div>
 
       </aside>
@@ -633,6 +631,15 @@
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Optional: add a simple active state on hash change
+    const navLinks = [...document.querySelectorAll(".top-nav a")].filter(a => a.getAttribute("href")?.startsWith("#"));
+    function setActive(){
+      const hash = window.location.hash || "#services";
+      navLinks.forEach(a => a.classList.toggle("is-active", a.getAttribute("href") === hash));
+    }
+    window.addEventListener("hashchange", setActive);
+    setActive();
   </script>
 </body>
 </html>
