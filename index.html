@@ -16,7 +16,7 @@
       --muted:rgba(255,255,255,.68);
       --accent:#ff6500;
       --accent2:#5ce1d4;
-      --accentY:#ffd24a; /* warm yellow accent */
+      --accentY:#ffea00; /* neon yellow accent */
       --shadow:0 20px 60px rgba(0,0,0,.35);
       --radius:20px;
       --max:1120px;
@@ -154,12 +154,17 @@
       align-items:center;
       justify-content:center;
       gap:10px;
-      padding:10px 14px;
-      border-radius:14px;
+      padding:10px 16px;
+      border-radius:999px;
       font-size:14px;
-      border:1px solid rgba(255,210,74,.55);
-      background:linear-gradient(135deg, rgba(255,210,74,.96), rgba(255,172,54,.72));
-      box-shadow:0 14px 50px rgba(255,210,74,.10);
+      font-weight:600;
+      border:1px solid rgba(255,234,0,.75);
+      background:linear-gradient(135deg, rgba(255,234,0,1), rgba(255,190,0,.85));
+      box-shadow:
+        0 18px 60px rgba(255,234,0,.22),
+        0 0 0 1px rgba(255,234,0,.35),
+        inset 0 -1px 0 rgba(0,0,0,.18);
+      color:#0b1220;
       color:#0b1220;
       cursor:pointer;
       user-select:none;
@@ -175,6 +180,29 @@
       .top-logo{height:40px;}
     }
 
+    /* Mobile header layout: prevent cut-off on iPhone Safari */
+    @media (max-width:720px){
+      .topbar-inner{flex-direction:column;align-items:flex-start;gap:10px;}
+      .brand{width:100%;}
+      .brand a{width:100%;}
+      .brand-meta{max-width:calc(100vw - 110px);}
+      .brand-name{font-size:13px;}
+      .nav{width:100%;justify-content:flex-start;gap:12px;}
+      .nav a{font-size:13px;}
+      .consult-pill{margin-left:0;}
+    }
+
+    /* iOS Safari performance: reduce expensive effects */
+    @supports (-webkit-touch-callout: none){
+      .topbar{backdrop-filter:none; background:rgba(7,13,24,.88);}
+      .panel, .contact-card{backdrop-filter:none;}
+      .reveal{filter:none;}
+    }
+      .nav{gap:14px;}
+      .consult-pill{padding:9px 12px; border-radius:12px;}
+      .top-logo{height:40px;}
+    }
+
     /* ===== APPLE-STYLE SECTIONS ===== */
     .section{
       /* section divider pseudo-element */
@@ -183,19 +211,21 @@
       content:"";
       position:absolute;
       left:50%;
-      bottom:18px;
-      width:min(980px, calc(100% - 36px));
-      height:1px;
+      bottom:22px;
+      width:min(1040px, calc(100% - 36px));
+      height:2px;
       transform:translateX(-50%);
       background:linear-gradient(90deg,
         rgba(255,255,255,0),
-        rgba(255,210,74,.55),
-        rgba(255,255,255,.18),
-        rgba(92,225,212,.22),
+        rgba(255,234,0,.85),
+        rgba(255,234,0,1),
+        rgba(92,225,212,.55),
         rgba(255,255,255,0)
       );
-      opacity:.75;
-      filter:drop-shadow(0 0 14px rgba(255,210,74,.16));
+      opacity:.95;
+      filter:
+        drop-shadow(0 0 10px rgba(255,234,0,.35))
+        drop-shadow(0 0 22px rgba(255,234,0,.22));
       pointer-events:none;
     }
     /* No divider on last content section */
@@ -254,12 +284,17 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      padding:12px 16px;
-      border-radius:14px;
-      font-size:14px;
-      border:1px solid rgba(255,210,74,.55);
-      background:linear-gradient(135deg, rgba(255,210,74,.96), rgba(255,172,54,.72));
-      box-shadow:0 16px 56px rgba(255,210,74,.12);
+      padding:14px 18px;
+      border-radius:999px;
+      font-size:15px;
+      font-weight:600;
+      border:1px solid rgba(255,234,0,.75);
+      background:linear-gradient(135deg, rgba(255,234,0,1), rgba(255,190,0,.85));
+      box-shadow:
+        0 22px 70px rgba(255,234,0,.24),
+        0 0 0 1px rgba(255,234,0,.35),
+        inset 0 -1px 0 rgba(0,0,0,.18);
+      color:#0b1220;
       color:#0b1220;
       cursor:pointer;
       user-select:none;
@@ -269,10 +304,10 @@
     .btn:hover{filter:brightness(1.05);transform:translateY(-1px);}
 
     .panel{
-      background:linear-gradient(180deg, rgba(18,26,44,.84), rgba(10,16,28,.78));
-      border:1px solid rgba(255,255,255,.14);
+      background:linear-gradient(180deg, rgba(22,32,56,.86), rgba(10,16,28,.78));
+      border:1px solid rgba(255,255,255,.16);
       border-radius:var(--radius);
-      box-shadow: 0 26px 90px rgba(0,0,0,.42);
+      box-shadow: 0 30px 110px rgba(0,0,0,.48);
       padding:22px;
       backdrop-filter:blur(14px);
       position:relative;
@@ -301,7 +336,7 @@
 
     .grid-3{display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;}
     .tile{
-      background:linear-gradient(180deg, rgba(18,26,44,.74), rgba(10,16,28,.70));
+      background:linear-gradient(180deg, rgba(22,32,56,.78), rgba(10,16,28,.70));
       border:1px solid rgba(255,255,255,.14);
       border-radius:18px;
       padding:18px;
@@ -343,8 +378,8 @@
 
     .callout{
       border-radius:18px;
-      border:1px solid rgba(255,255,255,.14);
-      background:linear-gradient(180deg, rgba(18,26,44,.72), rgba(10,16,28,.70));
+      border:1px solid rgba(255,255,255,.16);
+      background:linear-gradient(180deg, rgba(22,32,56,.76), rgba(10,16,28,.70));
       padding:18px;
       box-shadow: 0 18px 70px rgba(0,0,0,.24);
       position:relative;
@@ -367,8 +402,8 @@
     .steps{display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;margin-top:20px;}
     .step{
       border-radius:18px;
-      border:1px solid rgba(255,255,255,.14);
-      background:linear-gradient(180deg, rgba(18,26,44,.72), rgba(10,16,28,.70));
+      border:1px solid rgba(255,255,255,.16);
+      background:linear-gradient(180deg, rgba(22,32,56,.76), rgba(10,16,28,.70));
       padding:18px;
       min-height:150px;
       box-shadow: 0 18px 70px rgba(0,0,0,.24);
