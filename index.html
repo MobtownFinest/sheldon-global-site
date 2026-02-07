@@ -16,6 +16,7 @@
       --muted:rgba(255,255,255,.68);
       --accent:#ff6500;
       --accent2:#5ce1d4;
+      --accentY:#ffd24a; /* warm yellow accent */
       --shadow:0 20px 60px rgba(0,0,0,.35);
       --radius:20px;
       --max:1120px;
@@ -156,9 +157,9 @@
       padding:10px 14px;
       border-radius:14px;
       font-size:14px;
-      border:1px solid rgba(255,101,0,.45);
-      background:linear-gradient(135deg, rgba(255,101,0,.95), rgba(255,101,0,.55));
-      box-shadow:0 12px 40px rgba(255,101,0,.12);
+      border:1px solid rgba(255,210,74,.55);
+      background:linear-gradient(135deg, rgba(255,210,74,.96), rgba(255,172,54,.72));
+      box-shadow:0 14px 50px rgba(255,210,74,.10);
       color:#0b1220;
       cursor:pointer;
       user-select:none;
@@ -176,6 +177,31 @@
 
     /* ===== APPLE-STYLE SECTIONS ===== */
     .section{
+      /* section divider pseudo-element */
+    }
+    .section::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:18px;
+      width:min(980px, calc(100% - 36px));
+      height:1px;
+      transform:translateX(-50%);
+      background:linear-gradient(90deg,
+        rgba(255,255,255,0),
+        rgba(255,210,74,.55),
+        rgba(255,255,255,.18),
+        rgba(92,225,212,.22),
+        rgba(255,255,255,0)
+      );
+      opacity:.75;
+      filter:drop-shadow(0 0 14px rgba(255,210,74,.16));
+      pointer-events:none;
+    }
+    /* No divider on last content section */
+    .section#contact::after{display:none;}
+
+    .section{
       position:relative;
       min-height:70vh;
       padding:52px 0 54px;
@@ -186,30 +212,7 @@
     .section-inner{width:100%;}
 
     /* Subtle section rhythm divider */
-    .section-divider{
-      margin:34px auto 0;
-      width:min(980px, 100%);
-      height:1px;
-      background:linear-gradient(90deg,
-        rgba(255,255,255,0),
-        rgba(92,225,212,.28),
-        rgba(255,255,255,.18),
-        rgba(255,101,0,.20),
-        rgba(255,255,255,0)
-      );
-      position:relative;
-      opacity:.55;
-    }
-    .section-divider::after{
-      content:"";
-      position:absolute;
-      left:0; right:0; top:-10px;
-      height:22px;
-      background:radial-gradient(60% 70% at 50% 50%, rgba(92,225,212,.10), rgba(92,225,212,0) 70%);
-      filter:blur(6px);
-      opacity:.75;
-      pointer-events:none;
-    }
+    /* Section divider is now handled via a pseudo-element on each section for consistent rhythm */
 
     /* Apple-ish reveal: fades + slight zoom. Replays when you scroll away/back. */
     .reveal{
@@ -254,9 +257,9 @@
       padding:12px 16px;
       border-radius:14px;
       font-size:14px;
-      border:1px solid rgba(255,101,0,.45);
-      background:linear-gradient(135deg, rgba(255,101,0,.95), rgba(255,101,0,.55));
-      box-shadow:0 14px 44px rgba(255,101,0,.14);
+      border:1px solid rgba(255,210,74,.55);
+      background:linear-gradient(135deg, rgba(255,210,74,.96), rgba(255,172,54,.72));
+      box-shadow:0 16px 56px rgba(255,210,74,.12);
       color:#0b1220;
       cursor:pointer;
       user-select:none;
@@ -508,7 +511,7 @@
         </div>
       </div>
 
-      <div class="section-divider" aria-hidden="true"></div>
+      
     </div>
   </section>
 
@@ -556,7 +559,7 @@
         </div>
       </div>
 
-      <div class="section-divider" aria-hidden="true"></div>
+      
     </div>
   </section>
 
@@ -604,7 +607,7 @@
         </div>
       </div>
 
-      <div class="section-divider" aria-hidden="true"></div>
+      
     </div>
   </section>
 
@@ -667,7 +670,7 @@
         </div>
       </div>
 
-      <div class="section-divider" aria-hidden="true"></div>
+      
     </div>
   </section>
 
@@ -679,7 +682,7 @@
         <p class="section-lede">If you have an architecture, integration, or data problem that needs a practical plan and clean execution, reach out.</p>
 
         <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
-          <a class="btn" href="mailto:info@sheldonglobal.org?subject=Sheldon%20Global%20consult%20request">Request a consult</a>
+          <a class="btn" href="mailto:info@sheldonglobal.org?subject=Sheldon%20Global%20consult%20request&body=Hello%20Sheldon%20Global%2C%0A%0AI%E2%80%99d%20like%20to%20request%20a%20consult.%20Here%E2%80%99s%20some%20context%3A%0A%0AName%3A%20%0AOrganization%3A%20%0ARole%3A%20%0A%0AWhat%20are%20we%20trying%20to%20improve%3F%0A-%20%0A%0ASystems%20involved%20(EHR%2C%20integration%20engine%2C%20cloud%2C%20vendors)%3A%0A-%20%0A%0AEnvironment%2Fscale%20(prod%2Fnon-prod%2C%20volume%2C%20regions)%3A%0A-%20%0A%0ATimeline%20and%20constraints%3A%0A-%20%0A%0AIf%20helpful%2C%20include%20links%20to%20any%20diagrams%2C%20tickets%2C%20or%20examples.%0A%0AThanks%2C%0A">Request a consult</a>
         </div>
 
         <div class="contact-grid">
