@@ -177,33 +177,62 @@
     /* ===== APPLE-STYLE SECTIONS ===== */
     .section{
       position:relative;
-      min-height:76vh;
-      padding:56px 0 62px;
+      min-height:70vh;
+      padding:52px 0 54px;
       display:flex;
       align-items:center;
     }
+    .section#top{min-height:74vh; padding:58px 0 56px;}
     .section-inner{width:100%;}
 
+    /* Subtle section rhythm divider */
+    .section-divider{
+      margin:34px auto 0;
+      width:min(980px, 100%);
+      height:1px;
+      background:linear-gradient(90deg,
+        rgba(255,255,255,0),
+        rgba(92,225,212,.28),
+        rgba(255,255,255,.18),
+        rgba(255,101,0,.20),
+        rgba(255,255,255,0)
+      );
+      position:relative;
+      opacity:.55;
+    }
+    .section-divider::after{
+      content:"";
+      position:absolute;
+      left:0; right:0; top:-10px;
+      height:22px;
+      background:radial-gradient(60% 70% at 50% 50%, rgba(92,225,212,.10), rgba(92,225,212,0) 70%);
+      filter:blur(6px);
+      opacity:.75;
+      pointer-events:none;
+    }
+
+    /* Apple-ish reveal: fades + slight zoom. Replays when you scroll away/back. */
     .reveal{
       opacity:0;
       transform:translateY(18px) scale(.985);
       filter:saturate(.98) blur(3px);
-      transition:opacity .7s ease, transform .7s ease, filter .7s ease;
+      transition:opacity .75s ease, transform .75s ease, filter .75s ease;
       will-change:opacity, transform, filter;
     }
     .reveal.in{opacity:1;transform:translateY(0) scale(1);filter:saturate(1) blur(0);} 
-    .hero-grid{display:grid;grid-template-columns:1fr;gap:22px;align-items:stretch;}
+
+    .hero-grid{display:grid;grid-template-columns:1fr;gap:20px;align-items:stretch;}
 
     .hero-logo{
       height:140px;
       width:auto;
       display:block;
       filter: drop-shadow(0 24px 70px rgba(0,0,0,.60));
-      margin-bottom:10px;
+      margin-bottom:18px;
     }
 
     h1{
-      margin:14px 0 0;
+      margin:22px 0 0;
       font-size:64px;
       line-height:1.02;
       letter-spacing:-1.6px;
@@ -260,6 +289,8 @@
     .panel > *{position:relative;}
     .panel:hover{filter:brightness(1.03);}
 
+    .hero-panel{margin-top:18px;}
+
     .sidecard h3{margin:0 0 10px;font-size:14px;color:rgba(255,255,255,.70);letter-spacing:.2px;}
     .sidecard .big{margin:0;font-size:20px;line-height:1.35;color:rgba(255,255,255,.90);}
     .sidecard .bul{margin:14px 0 0;padding:0 0 0 18px;color:rgba(255,255,255,.70);}
@@ -290,10 +321,22 @@
     .tile h3{margin:0 0 8px;font-size:14px;}
     .tile p{margin:0;color:rgba(255,255,255,.68);font-size:13px;line-height:1.55;}
 
-    .section-title{margin:0;font-size:52px;letter-spacing:-1.1px;line-height:1.05;}
-    .section-lede{margin:14px 0 0;color:rgba(255,255,255,.70);font-size:16px;line-height:1.7;max-width:860px;}
+    .section-title{margin:0;font-size:52px;letter-spacing:-1.1px;line-height:1.05;display:inline-block;position:relative;}
+    .section-title::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-12px;
+      width:96px;
+      height:2px;
+      border-radius:99px;
+      background:linear-gradient(90deg, rgba(92,225,212,.90), rgba(255,101,0,.85));
+      opacity:.55;
+      filter:drop-shadow(0 0 12px rgba(92,225,212,.14));
+    }
+    .section-lede{margin:18px 0 0;color:rgba(255,255,255,.70);font-size:16px;line-height:1.7;max-width:860px;}
 
-    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px;}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px;}
 
     .callout{
       border-radius:18px;
@@ -318,7 +361,7 @@
     .callout li{margin:8px 0;line-height:1.55;}
 
     /* Approach cards */
-    .steps{display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;margin-top:22px;}
+    .steps{display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;margin-top:20px;}
     .step{
       border-radius:18px;
       border:1px solid rgba(255,255,255,.14);
@@ -382,6 +425,7 @@
     .ctext{display:grid;gap:3px;min-width:0;}
     .ctext .label{font-size:11px;color:rgba(255,255,255,.62);letter-spacing:.25px;}
     .ctext a,.ctext div{font-size:14px;color:rgba(255,255,255,.88);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .ctext .value{white-space:normal;overflow:visible;text-overflow:clip;}
 
     footer{padding:26px 0 40px;color:rgba(255,255,255,.62);font-size:12px;border-top:1px solid rgba(255,255,255,.08);}
     .foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
@@ -439,7 +483,7 @@
 
           </div>
 
-          <div class="panel" style="margin-top:26px;">
+          <div class="panel hero-panel">
             <h3 style="margin:0 0 10px;font-size:14px;color:rgba(255,255,255,.72);letter-spacing:.2px;">What teams usually want</h3>
             <p style="margin:0;color:rgba(255,255,255,.90);font-size:18px;line-height:1.45;">Clear direction, fewer integration surprises, and predictable delivery across environments.</p>
             <ul style="margin:14px 0 0;padding:0 0 0 18px;color:rgba(255,255,255,.72);">
@@ -463,6 +507,8 @@
           </ul>
         </div>
       </div>
+
+      <div class="section-divider" aria-hidden="true"></div>
     </div>
   </section>
 
@@ -509,6 +555,8 @@
           </div>
         </div>
       </div>
+
+      <div class="section-divider" aria-hidden="true"></div>
     </div>
   </section>
 
@@ -555,6 +603,8 @@
           </div>
         </div>
       </div>
+
+      <div class="section-divider" aria-hidden="true"></div>
     </div>
   </section>
 
@@ -616,6 +666,8 @@
           </div>
         </div>
       </div>
+
+      <div class="section-divider" aria-hidden="true"></div>
     </div>
   </section>
 
@@ -664,7 +716,15 @@
                   <div class="label">General inbox</div>
                   <a href="mailto:info@sheldonglobal.org">info@sheldonglobal.org</a>
                 </div>
-              </div>            </div>
+              </div>
+              <div class="contact-row">
+                <div class="ico" aria-hidden="true">🕒</div>
+                <div class="ctext">
+                  <div class="label">Response</div>
+                  <div class="value">Typically within 1 business day</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -685,16 +745,20 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Fade-in on scroll (Apple-ish)
+    // Reveal on scroll (Apple-ish): replays when sections exit/enter viewport
     const els = Array.from(document.querySelectorAll('.reveal'));
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
         if(e.isIntersecting){
           e.target.classList.add('in');
-          io.unobserve(e.target);
+        }else{
+          e.target.classList.remove('in');
         }
       });
-    }, {threshold: 0.12});
+    }, {
+      threshold: 0.18,
+      rootMargin: "0px 0px -12% 0px"
+    });
 
     els.forEach(el=>io.observe(el));
   </script>
