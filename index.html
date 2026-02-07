@@ -177,35 +177,21 @@
     /* ===== APPLE-STYLE SECTIONS ===== */
     .section{
       position:relative;
-      min-height:92vh;
-      padding:72px 0 84px;
+      min-height:76vh;
+      padding:56px 0 62px;
       display:flex;
       align-items:center;
     }
-
     .section-inner{width:100%;}
 
     .reveal{
       opacity:0;
-      transform:translateY(14px);
-      filter:saturate(.98);
-      transition:opacity .65s ease, transform .65s ease, filter .65s ease;
-      will-change:opacity, transform;
+      transform:translateY(18px) scale(.985);
+      filter:saturate(.98) blur(3px);
+      transition:opacity .7s ease, transform .7s ease, filter .7s ease;
+      will-change:opacity, transform, filter;
     }
-    .reveal.in{opacity:1;transform:translateY(0);filter:saturate(1);} 
-
-    .section-inner{width:100%;}
-
-    .reveal{
-      opacity:0;
-      transform:translateY(14px);
-      filter:saturate(.98);
-      transition:opacity .65s ease, transform .65s ease, filter .65s ease;
-      will-change:opacity, transform;
-    }
-    .reveal.in{opacity:1;transform:translateY(0);filter:saturate(1);}
-
-    
+    .reveal.in{opacity:1;transform:translateY(0) scale(1);filter:saturate(1) blur(0);} 
     .hero-grid{display:grid;grid-template-columns:1fr;gap:22px;align-items:stretch;}
 
     .hero-logo{
@@ -251,13 +237,28 @@
     .btn:hover{filter:brightness(1.05);transform:translateY(-1px);}
 
     .panel{
-      background:rgba(10,16,28,.78);
-      border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(18,26,44,.84), rgba(10,16,28,.78));
+      border:1px solid rgba(255,255,255,.14);
       border-radius:var(--radius);
-      box-shadow:var(--shadow);
+      box-shadow: 0 26px 90px rgba(0,0,0,.42);
       padding:22px;
-      backdrop-filter:blur(12px);
+      backdrop-filter:blur(14px);
+      position:relative;
+      overflow:hidden;
     }
+
+    .panel::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(680px 240px at 12% 18%, rgba(92,225,212,.10), transparent 55%),
+        radial-gradient(680px 240px at 88% 22%, rgba(255,101,0,.06), transparent 55%);
+      opacity:.55;
+      pointer-events:none;
+    }
+    .panel > *{position:relative;}
+    .panel:hover{filter:brightness(1.03);}
 
     .sidecard h3{margin:0 0 10px;font-size:14px;color:rgba(255,255,255,.70);letter-spacing:.2px;}
     .sidecard .big{margin:0;font-size:20px;line-height:1.35;color:rgba(255,255,255,.90);}
@@ -266,15 +267,26 @@
 
     .grid-3{display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;}
     .tile{
-      background:rgba(10,16,28,.72);
-      border:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(180deg, rgba(18,26,44,.74), rgba(10,16,28,.70));
+      border:1px solid rgba(255,255,255,.14);
       border-radius:18px;
       padding:18px;
       min-height:132px;
-      box-shadow: 0 0 0 1px rgba(255,255,255,.02);
-      transition:transform .15s ease, filter .15s ease, border-color .15s ease;
+      box-shadow: 0 18px 70px rgba(0,0,0,.28);
+      position:relative;
+      overflow:hidden;
+      transition:transform .18s ease, filter .18s ease, border-color .18s ease;
     }
-    .tile:hover{transform:translateY(-1px);filter:brightness(1.04);border-color:rgba(255,255,255,.16);}
+    .tile::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(520px 220px at 18% 22%, rgba(92,225,212,.10), transparent 55%);
+      opacity:.35;
+      pointer-events:none;
+    }
+    .tile > *{position:relative;}
+    .tile:hover{transform:translateY(-2px);filter:brightness(1.05);border-color:rgba(92,225,212,.22);}
     .tile h3{margin:0 0 8px;font-size:14px;}
     .tile p{margin:0;color:rgba(255,255,255,.68);font-size:13px;line-height:1.55;}
 
@@ -285,10 +297,22 @@
 
     .callout{
       border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(10,16,28,.70);
+      border:1px solid rgba(255,255,255,.14);
+      background:linear-gradient(180deg, rgba(18,26,44,.72), rgba(10,16,28,.70));
       padding:18px;
+      box-shadow: 0 18px 70px rgba(0,0,0,.24);
+      position:relative;
+      overflow:hidden;
     }
+    .callout::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(520px 220px at 84% 18%, rgba(255,101,0,.06), transparent 58%);
+      opacity:.35;
+      pointer-events:none;
+    }
+    .callout > *{position:relative;}
     .callout h4{margin:0 0 8px;font-size:14px;color:rgba(255,255,255,.82);}
     .callout ul{margin:0;padding:0 0 0 18px;color:rgba(255,255,255,.70);}
     .callout li{margin:8px 0;line-height:1.55;}
@@ -297,11 +321,25 @@
     .steps{display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;margin-top:22px;}
     .step{
       border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(10,16,28,.72);
+      border:1px solid rgba(255,255,255,.14);
+      background:linear-gradient(180deg, rgba(18,26,44,.72), rgba(10,16,28,.70));
       padding:18px;
       min-height:150px;
+      box-shadow: 0 18px 70px rgba(0,0,0,.24);
+      position:relative;
+      overflow:hidden;
+      transition:transform .18s ease, filter .18s ease, border-color .18s ease;
     }
+    .step::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(520px 220px at 18% 18%, rgba(92,225,212,.08), transparent 58%);
+      opacity:.30;
+      pointer-events:none;
+    }
+    .step > *{position:relative;}
+    .step:hover{transform:translateY(-2px);filter:brightness(1.05);border-color:rgba(92,225,212,.22);}
     .step h4{margin:0 0 10px;font-size:15px;}
     .step p{margin:0;color:rgba(255,255,255,.68);font-size:13px;line-height:1.6;}
     .step ul{margin:10px 0 0;padding:0 0 0 18px;color:rgba(255,255,255,.70);}
@@ -311,7 +349,27 @@
 
     /* Contact */
     .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;}
-    .contact-card{border-radius:20px;border:1px solid rgba(255,255,255,.12);background:rgba(10,16,28,.74);box-shadow:var(--shadow);backdrop-filter:blur(12px);padding:18px;}
+    .contact-card{
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.14);
+      background:linear-gradient(180deg, rgba(18,26,44,.78), rgba(10,16,28,.74));
+      box-shadow: 0 26px 90px rgba(0,0,0,.40);
+      backdrop-filter:blur(14px);
+      padding:18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .contact-card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(520px 220px at 14% 18%, rgba(92,225,212,.10), transparent 58%),
+        radial-gradient(520px 220px at 88% 18%, rgba(255,101,0,.06), transparent 58%);
+      opacity:.40;
+      pointer-events:none;
+    }
+    .contact-card > *{position:relative;}
     .contact-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;}
     .contact-title{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.86);}
     .beacon{width:10px;height:10px;border-radius:99px;background:linear-gradient(180deg, rgba(92,225,212,1), rgba(92,225,212,.45));box-shadow:0 0 0 5px rgba(92,225,212,.10), 0 0 18px rgba(92,225,212,.22);}
@@ -359,8 +417,7 @@
       <nav class="nav" aria-label="Primary navigation">
         <a href="#services">Services</a>
         <a href="#deliverables">Deliverables</a>
-        <a href="#approach">Approach</a>
-        <a href="#contact">Contact</a>
+        <a href="#approach">Approach</a>        <a href="#contact">Contact</a>
         <a class="consult-pill" href="#contact">Request a consult</a>
       </nav>
     </div>
@@ -571,7 +628,6 @@
 
         <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
           <a class="btn" href="mailto:info@sheldonglobal.org?subject=Sheldon%20Global%20consult%20request">Request a consult</a>
-          <div style="color:rgba(255,255,255,.58);font-size:13px;line-height:1.5;">Typical response within 1 business day.</div>
         </div>
 
         <div class="contact-grid">
@@ -608,15 +664,7 @@
                   <div class="label">General inbox</div>
                   <a href="mailto:info@sheldonglobal.org">info@sheldonglobal.org</a>
                 </div>
-              </div>
-              <div class="contact-row">
-                <div class="ico" aria-hidden="true">🕒</div>
-                <div class="ctext">
-                  <div class="label">Response</div>
-                  <div>Typically within 1 business day</div>
-                </div>
-              </div>
-            </div>
+              </div>            </div>
           </div>
         </div>
 
