@@ -1,18 +1,674 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Sheldon Global Site</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Sheldon Global — Healthcare IT Consulting. Architecture, integration, interoperability, and data automation." />
+  <title>Sheldon Global | Healthcare IT Consulting</title>
+
+  <style>
+    :root{
+      --bg:#070d18;
+      --bg2:#0b1220;
+      --card:rgba(255,255,255,.06);
+      --border:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
+      --accent:#ff6500;
+      --accent2:#5ce1d4;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:20px;
+      --max:1120px;
+      --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+      --glowA: 0 0 0 1px rgba(255,101,0,.18), 0 0 28px rgba(255,101,0,.16);
+      --glowB: 0 0 0 1px rgba(92,225,212,.18), 0 0 28px rgba(92,225,212,.14);
+    }
+
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 520px at 15% 12%, rgba(255,101,0,.20), transparent 60%),
+        radial-gradient(1000px 520px at 85% 18%, rgba(92,225,212,.18), transparent 60%),
+        radial-gradient(900px 620px at 50% 105%, rgba(255,255,255,.06), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none;}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 18px;}
+
+    /* ===== STICKY HEADER ===== */
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(7,13,24,.78), rgba(7,13,24,.35));
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .topbar-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .brand a{display:inline-flex;align-items:center;gap:12px;min-width:0;}
+
+    .top-logo{
+      height:44px;
+      width:auto;
+      display:block;
+      filter: drop-shadow(0 12px 28px rgba(0,0,0,.35));
+    }
+
+    .brand-meta{display:flex;flex-direction:column;line-height:1.1;min-width:0;}
+    .brand-name{font-size:14px;letter-spacing:.2px;opacity:.96;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .brand-sub{font-size:12px;color:rgba(255,255,255,.66);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+    .nav{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .nav a{
+      position:relative;
+      font-size:14px;
+      color:rgba(255,255,255,.82);
+      padding:8px 2px;
+      letter-spacing:.2px;
+      text-shadow:0 0 18px rgba(255,255,255,.06);
+      transition:filter .15s ease, transform .15s ease, color .15s ease;
+    }
+
+    .nav a::before{
+      content:"";
+      position:absolute;
+      left:-10px; right:-10px;
+      top:50%;
+      height:26px;
+      transform:translateY(-50%);
+      border-radius:999px;
+      background:radial-gradient(60% 90% at 50% 50%, rgba(92,225,212,.18), rgba(92,225,212,0) 70%);
+      opacity:0;
+      filter:blur(.3px);
+      transition:opacity .15s ease;
+      pointer-events:none;
+    }
+
+    .nav a::after{
+      content:"";
+      position:absolute;
+      left:-2px; right:-2px; bottom:2px;
+      height:2px;
+      border-radius:99px;
+      background:linear-gradient(90deg,
+        rgba(92,225,212,0),
+        rgba(92,225,212,.95),
+        rgba(255,101,0,.85),
+        rgba(255,101,0,0)
+      );
+      opacity:.30;
+      filter:drop-shadow(0 0 10px rgba(92,225,212,.18));
+      transform:translateY(2px);
+      transition:opacity .15s ease, transform .15s ease, filter .15s ease;
+      pointer-events:none;
+    }
+
+    .nav a:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.08);
+      color:rgba(255,255,255,.95);
+    }
+    .nav a:hover::before{opacity:1;}
+    .nav a:hover::after{
+      opacity:1;
+      transform:translateY(0);
+      filter:
+        drop-shadow(0 0 14px rgba(92,225,212,.22))
+        drop-shadow(0 0 18px rgba(255,101,0,.18));
+    }
+
+    .consult-pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:14px;
+      font-size:14px;
+      border:1px solid rgba(255,101,0,.45);
+      background:linear-gradient(135deg, rgba(255,101,0,.95), rgba(255,101,0,.55));
+      box-shadow:0 12px 40px rgba(255,101,0,.12);
+      color:#0b1220;
+      cursor:pointer;
+      user-select:none;
+      transition:filter .15s ease, transform .15s ease;
+      white-space:nowrap;
+    }
+    .consult-pill:hover{filter:brightness(1.05);transform:translateY(-1px);}
+
+    @media (max-width:900px){
+      .brand-sub{display:none;}
+      .nav{gap:14px;}
+      .consult-pill{padding:9px 12px; border-radius:12px;}
+      .top-logo{height:40px;}
+    }
+
+    /* ===== APPLE-STYLE SECTIONS ===== */
+    .section{
+      position:relative;
+      min-height:92vh;
+      padding:72px 0 84px;
+      display:flex;
+      align-items:center;
+    }
+
+    /* fade at bottom of each section */
+    .section::after{
+      content:"";
+      position:absolute;
+      left:0;right:0;bottom:-1px;
+      height:120px;
+      background:linear-gradient(180deg, rgba(7,13,24,0), rgba(7,13,24,.85), rgba(7,13,24,1));
+      pointer-events:none;
+    }
+
+    /* subtle section-to-section shift */
+    .section.alt{
+      background:
+        radial-gradient(1000px 540px at 90% 20%, rgba(92,225,212,.12), transparent 60%),
+        radial-gradient(900px 520px at 10% 25%, rgba(255,101,0,.10), transparent 62%);
+    }
+
+    .section-inner{width:100%;}
+
+    .reveal{
+      opacity:0;
+      transform:translateY(14px);
+      filter:saturate(.98);
+      transition:opacity .65s ease, transform .65s ease, filter .65s ease;
+      will-change:opacity, transform;
+    }
+    .reveal.in{opacity:1;transform:translateY(0);filter:saturate(1);}
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.18);
+      color:rgba(255,255,255,.70);
+      font-size:12px;
+      letter-spacing:.25px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.03), 0 0 22px rgba(92,225,212,.08);
+    }
+    .eyebrow .dot{width:8px;height:8px;border-radius:99px;background:rgba(92,225,212,.95);box-shadow:0 0 0 4px rgba(92,225,212,.14);}
+
+    .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:stretch;}
+
+    .hero-logo{
+      height:140px;
+      width:auto;
+      display:block;
+      filter: drop-shadow(0 24px 70px rgba(0,0,0,.60));
+      margin-bottom:10px;
+    }
+
+    h1{
+      margin:14px 0 0;
+      font-size:64px;
+      line-height:1.02;
+      letter-spacing:-1.6px;
+      max-width:980px;
+    }
+
+    .subhead{
+      margin:18px 0 0;
+      color:rgba(255,255,255,.74);
+      font-size:18px;
+      line-height:1.7;
+      max-width:980px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 16px;
+      border-radius:14px;
+      font-size:14px;
+      border:1px solid rgba(255,101,0,.45);
+      background:linear-gradient(135deg, rgba(255,101,0,.95), rgba(255,101,0,.55));
+      box-shadow:0 14px 44px rgba(255,101,0,.14);
+      color:#0b1220;
+      cursor:pointer;
+      user-select:none;
+      transition:filter .15s ease, transform .15s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{filter:brightness(1.05);transform:translateY(-1px);}
+
+    .panel{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+      backdrop-filter:blur(12px);
+    }
+
+    .sidecard h3{margin:0 0 10px;font-size:14px;color:rgba(255,255,255,.70);letter-spacing:.2px;}
+    .sidecard .big{margin:0;font-size:20px;line-height:1.35;color:rgba(255,255,255,.90);}
+    .sidecard .bul{margin:14px 0 0;padding:0 0 0 18px;color:rgba(255,255,255,.70);}
+    .sidecard .bul li{margin:8px 0;line-height:1.55;}
+
+    .grid-3{display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;}
+    .tile{
+      background:rgba(0,0,0,.14);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:18px;
+      padding:18px;
+      min-height:132px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.02);
+      transition:transform .15s ease, filter .15s ease, border-color .15s ease;
+    }
+    .tile:hover{transform:translateY(-1px);filter:brightness(1.04);border-color:rgba(255,255,255,.16);}
+    .tile h3{margin:0 0 8px;font-size:14px;}
+    .tile p{margin:0;color:rgba(255,255,255,.68);font-size:13px;line-height:1.55;}
+
+    .section-title{margin:0;font-size:52px;letter-spacing:-1.1px;line-height:1.05;}
+    .section-lede{margin:14px 0 0;color:rgba(255,255,255,.70);font-size:16px;line-height:1.7;max-width:860px;}
+
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px;}
+
+    .callout{
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(520px 180px at 12% 24%, rgba(92,225,212,.12), transparent 55%),
+        radial-gradient(520px 180px at 90% 30%, rgba(255,101,0,.12), transparent 55%),
+        rgba(0,0,0,.14);
+      padding:18px;
+    }
+    .callout h4{margin:0 0 8px;font-size:14px;color:rgba(255,255,255,.82);}
+    .callout ul{margin:0;padding:0 0 0 18px;color:rgba(255,255,255,.70);}
+    .callout li{margin:8px 0;line-height:1.55;}
+
+    /* Approach cards */
+    .steps{display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;margin-top:22px;}
+    .step{
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.14);
+      padding:18px;
+      min-height:150px;
+    }
+    .step h4{margin:0 0 10px;font-size:15px;}
+    .step p{margin:0;color:rgba(255,255,255,.68);font-size:13px;line-height:1.6;}
+    .step ul{margin:10px 0 0;padding:0 0 0 18px;color:rgba(255,255,255,.70);}
+    .step li{margin:6px 0;line-height:1.55;font-size:13px;}
+
+    .steps-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+
+    /* Contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;}
+    .contact-card{border-radius:20px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.14);box-shadow:var(--shadow);backdrop-filter:blur(12px);padding:18px;}
+    .contact-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;}
+    .contact-title{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.86);}
+    .beacon{width:10px;height:10px;border-radius:99px;background:linear-gradient(180deg, rgba(92,225,212,1), rgba(92,225,212,.45));box-shadow:0 0 0 5px rgba(92,225,212,.10), 0 0 18px rgba(92,225,212,.22);}
+    .beacon.orange{background:linear-gradient(180deg, rgba(255,101,0,1), rgba(255,101,0,.45));box-shadow:0 0 0 5px rgba(255,101,0,.10), 0 0 18px rgba(255,101,0,.20);}
+
+    .contact-list{display:grid;gap:10px;}
+    .contact-row{display:flex;align-items:center;gap:12px;padding:12px;border-radius:16px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.14);transition:transform .15s ease, filter .15s ease, border-color .15s ease;}
+    .contact-row:hover{transform:translateY(-1px);filter:brightness(1.04);border-color:rgba(92,225,212,.20);}
+    .ico{width:36px;height:36px;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);box-shadow:0 0 18px rgba(255,255,255,.06);flex:0 0 auto;font-size:16px;}
+    .ctext{display:grid;gap:3px;min-width:0;}
+    .ctext .label{font-size:11px;color:rgba(255,255,255,.62);letter-spacing:.25px;}
+    .ctext a,.ctext div{font-size:14px;color:rgba(255,255,255,.88);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+    footer{padding:26px 0 40px;color:rgba(255,255,255,.62);font-size:12px;border-top:1px solid rgba(255,255,255,.08);}
+    .foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+
+    @media (max-width:980px){
+      .hero-grid{grid-template-columns:1fr;}
+      h1{font-size:52px;}
+      .section-title{font-size:42px;}
+      .grid-3{grid-template-columns:1fr;}
+      .two-col{grid-template-columns:1fr;}
+      .steps{grid-template-columns:1fr;}
+      .steps-2{grid-template-columns:1fr;}
+      .contact-grid{grid-template-columns:1fr;}
+      .hero-logo{height:124px;}
+    }
+  </style>
 </head>
+
 <body>
-    <div class="topbar" style="position: relative; padding: 20px 18px;"><!-- Sticky positioning removed and padding increased -->
-        <img src="logo.png" alt="Logo" style="height: 100px;"> <!-- Logo height increased -->
+
+  <header class="topbar" aria-label="Site header">
+    <div class="topbar-inner">
+      <div class="brand">
+        <a href="index.html" aria-label="Go to Sheldon Global homepage">
+          <img class="top-logo" src="assets/sheldon_global_logo.png" alt="Sheldon Global logo" />
+          <div class="brand-meta">
+            <div class="brand-name">Sheldon Global</div>
+            <div class="brand-sub">Healthcare IT • Integration • Interoperability</div>
+          </div>
+        </a>
+      </div>
+
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#services">Services</a>
+        <a href="#deliverables">Deliverables</a>
+        <a href="#approach">Approach</a>
+        <a href="lab.html">Lab</a>
+        <a href="#contact">Contact</a>
+        <a class="consult-pill" href="#contact">Request a consult</a>
+      </nav>
     </div>
-    <div class="contact">
-        <!-- Email Sean button has been removed -->
+  </header>
+
+  <!-- HERO -->
+  <section class="section" id="top">
+    <div class="wrap section-inner">
+      <div class="hero-grid reveal">
+        <div>
+          <img class="hero-logo" src="assets/sheldon_global_logo.png" alt="Sheldon Global logo" />
+
+          <div class="eyebrow"><span class="dot" aria-hidden="true"></span> Healthcare IT consulting</div>
+          <h1>Build reliable platforms for care delivery — without the chaos.</h1>
+          <p class="subhead">
+            Sheldon Global helps health systems and enterprise teams modernize architecture, streamline interoperability,
+            improve data quality, and automate operational workflows. The result is fewer surprises, cleaner integrations,
+            and systems you can trust in production.
+          </p>
+
+          <div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+            <a class="btn" href="#contact">Request a consult</a>
+            <div style="color:rgba(255,255,255,.60);font-size:13px;line-height:1.5;">
+              Prefer email? <a href="mailto:info@sheldonglobal.org" style="color:rgba(92,225,212,.92)">info@sheldonglobal.org</a>
+            </div>
+          </div>
+        </div>
+
+        <aside class="panel sidecard">
+          <h3>What teams usually want</h3>
+          <p class="big">Clear direction, fewer integration surprises, and predictable delivery across environments.</p>
+          <ul class="bul">
+            <li>Reduce interface fragility and “mystery” failures</li>
+            <li>Make data trustworthy for analytics and clinical workflows</li>
+            <li>Improve throughput with automation and repeatable runbooks</li>
+            <li>Harden delivery with least-privilege and audit-friendly patterns</li>
+          </ul>
+        </aside>
+      </div>
     </div>
-    <script src="script.js"></script>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section alt" id="services">
+    <div class="wrap section-inner">
+      <div class="reveal">
+        <h2 class="section-title">Services built for healthcare reality.</h2>
+        <p class="section-lede">Architecture, integration, and data work that respects constraints, compliance, and operational risk.</p>
+
+        <div class="grid-3" style="margin-top:26px;">
+          <div class="tile">
+            <h3>Solution architecture</h3>
+            <p>Cloud-ready designs, system boundaries, patterns, and decisions that keep teams fast and stable.</p>
+          </div>
+          <div class="tile">
+            <h3>Integration and interoperability</h3>
+            <p>APIs, HL7/FHIR, mapping clarity, and environment-ready validation that reduces rework and outages.</p>
+          </div>
+          <div class="tile">
+            <h3>Data quality and automation</h3>
+            <p>Controls, pipelines, and automations that remove manual steps and improve trust in reporting and workflows.</p>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="callout">
+            <h4>Common engagements</h4>
+            <ul>
+              <li>Integration strategy and interface hardening</li>
+              <li>Target-state architecture and migration planning</li>
+              <li>Data validation, reconciliation, and monitoring</li>
+              <li>Workflow automation (reduce manual operational load)</li>
+            </ul>
+          </div>
+          <div class="callout">
+            <h4>How success is measured</h4>
+            <ul>
+              <li>Fewer failed messages and production incidents</li>
+              <li>Faster onboarding across environments</li>
+              <li>Reduced manual remediation and “tribal knowledge”</li>
+              <li>Clear traceability for audits and change control</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES -->
+  <section class="section" id="deliverables">
+    <div class="wrap section-inner">
+      <div class="reveal">
+        <h2 class="section-title">Deliverables people actually use.</h2>
+        <p class="section-lede">Clear artifacts that make it easier to implement, operate, and explain.</p>
+
+        <div class="grid-3" style="margin-top:26px;">
+          <div class="tile">
+            <h3>Architecture artifacts</h3>
+            <p>System context and sequence diagrams, decision records, and a practical target-state plan.</p>
+          </div>
+          <div class="tile">
+            <h3>Integration specifications</h3>
+            <p>Mappings, data contracts, error handling rules, and environment-ready validation checklists.</p>
+          </div>
+          <div class="tile">
+            <h3>Operational readiness</h3>
+            <p>Runbooks, monitoring recommendations, and handoff documentation for support and on-call teams.</p>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="callout">
+            <h4>Security-minded delivery</h4>
+            <ul>
+              <li>Least-privilege thinking and access boundaries</li>
+              <li>Audit-friendly workflows (change notes, traceability, validation logs)</li>
+              <li>Baseline hardening recommendations where it matters</li>
+              <li>Practical risk tradeoffs documented (not hand-wavy)</li>
+            </ul>
+          </div>
+          <div class="callout">
+            <h4>Why this matters</h4>
+            <ul>
+              <li>Faster alignment across clinical, technical, and operational teams</li>
+              <li>Fewer production surprises during releases</li>
+              <li>Support teams know what a system does and how to recover</li>
+              <li>Leaders get clear narratives and decision points</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="section alt" id="approach">
+    <div class="wrap section-inner">
+      <div class="reveal">
+        <h2 class="section-title">A simple, repeatable approach.</h2>
+        <p class="section-lede">No theater. Small increments, clear checkpoints, and documentation that survives handoffs.</p>
+
+        <div class="steps">
+          <div class="step">
+            <h4>1) Discovery</h4>
+            <p>Understand the real problem, current-state constraints, stakeholders, and risk profile.</p>
+            <ul>
+              <li>What breaks today and why</li>
+              <li>Constraints: compliance, timelines, vendors, environments</li>
+              <li>Success criteria and measurable outcomes</li>
+            </ul>
+          </div>
+          <div class="step">
+            <h4>2) Plan</h4>
+            <p>A lightweight, opinionated plan grounded in operational reality and measurable outcomes.</p>
+            <ul>
+              <li>Target state + path to get there</li>
+              <li>Risks, dependencies, and decision points</li>
+              <li>Validation plan for each environment</li>
+            </ul>
+          </div>
+          <div class="step">
+            <h4>3) Execute</h4>
+            <p>Implement in small, testable increments with validation across environments.</p>
+            <ul>
+              <li>Build, test, observe, adjust</li>
+              <li>Clear change notes and traceability</li>
+              <li>Keep production risk controlled</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="steps-2">
+          <div class="step">
+            <h4>4) Handoff</h4>
+            <p>Diagrams, documentation, runbooks, and next-step recommendations to keep teams moving.</p>
+            <ul>
+              <li>Runbooks for operations and support</li>
+              <li>Decision records and implementation notes</li>
+              <li>“What to watch” monitoring guidance</li>
+            </ul>
+          </div>
+          <div class="step">
+            <h4>5) Improve</h4>
+            <p>Optional follow-up to refine, automate, and harden based on what production teaches.</p>
+            <ul>
+              <li>Reduce manual remediation</li>
+              <li>Automate validation and reporting</li>
+              <li>Close reliability gaps discovered in the wild</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="wrap section-inner">
+      <div class="reveal">
+        <h2 class="section-title">Let’s talk.</h2>
+        <p class="section-lede">If you have an architecture, integration, or data problem that needs a practical plan and clean execution, reach out.</p>
+
+        <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+          <a class="btn" href="mailto:info@sheldonglobal.org?subject=Sheldon%20Global%20consult%20request">Request a consult</a>
+          <div style="color:rgba(255,255,255,.58);font-size:13px;line-height:1.5;">Typical response within 1 business day.</div>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div class="contact-head">
+              <div class="contact-title"><span class="beacon orange" aria-hidden="true"></span> Sean Sheldon</div>
+            </div>
+            <div class="contact-list">
+              <div class="contact-row">
+                <div class="ico" aria-hidden="true">📞</div>
+                <div class="ctext">
+                  <div class="label">Phone</div>
+                  <a href="tel:+12512790777">251-279-0777</a>
+                </div>
+              </div>
+              <div class="contact-row">
+                <div class="ico" aria-hidden="true">📧</div>
+                <div class="ctext">
+                  <div class="label">Email</div>
+                  <a href="mailto:sean@sheldonglobal.org">sean@sheldonglobal.org</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-head">
+              <div class="contact-title"><span class="beacon" aria-hidden="true"></span> Office</div>
+            </div>
+            <div class="contact-list">
+              <div class="contact-row">
+                <div class="ico" aria-hidden="true">🧾</div>
+                <div class="ctext">
+                  <div class="label">General inbox</div>
+                  <a href="mailto:info@sheldonglobal.org">info@sheldonglobal.org</a>
+                </div>
+              </div>
+              <div class="contact-row">
+                <div class="ico" aria-hidden="true">🕒</div>
+                <div class="ctext">
+                  <div class="label">Response</div>
+                  <div>Typically within 1 business day</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;color:rgba(255,255,255,.52);font-size:12px;line-height:1.6;">
+          Note: This site describes consulting services. No patient data is collected or stored here.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot">
+      <div>© <span id="y"></span> Sheldon Global</div>
+      <div>Healthcare IT • Integration • Interoperability</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Fade-in on scroll (Apple-ish)
+    const els = Array.from(document.querySelectorAll('.reveal'));
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold: 0.12});
+
+    els.forEach(el=>io.observe(el));
+  </script>
 </body>
 </html>
