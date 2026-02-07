@@ -72,23 +72,15 @@
     }
 
     .logo-link{display:inline-flex;align-items:center;gap:12px;min-width:0;}
+    .logo-link:hover .top-logo{filter: drop-shadow(0 12px 28px rgba(0,0,0,.35)) brightness(1.03);}
     .logo-link:focus-visible{outline:2px solid rgba(92,225,212,.55); outline-offset:6px; border-radius:14px;}
 
-    .mark{
-      width:38px;
-      height:38px;
-      border-radius:12px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.10);
-      display:grid;
-      place-items:center;
-      overflow:hidden;
-      box-shadow:0 10px 30px rgba(0,0,0,.28);
-      flex:0 0 auto;
+    .top-logo{
+      height:34px;
+      width:auto;
+      display:block;
+      filter: drop-shadow(0 12px 28px rgba(0,0,0,.35));
     }
-
-    .mark img{width:100%;height:100%;object-fit:cover;}
-
     .brand-title{
       display:flex;
       flex-direction:column;
@@ -207,18 +199,19 @@
     }
 
     .headline{
-      font-size:54px;
-      line-height:1.03;
-      letter-spacing:-1.2px;
+      font-size:60px;
+      line-height:1.02;
+      letter-spacing:-1.4px;
       margin:0;
+      max-width:1040px;
     }
 
     .subhead{
-      margin:14px 0 0;
-      color:rgba(255,255,255,.72);
-      font-size:17px;
-      line-height:1.6;
-      max-width:900px;
+      margin:16px 0 0;
+      color:rgba(255,255,255,.74);
+      font-size:18px;
+      line-height:1.65;
+      max-width:1040px;
     }
 
     .kicker{
@@ -329,10 +322,9 @@
     .quote{
       border-radius:var(--radius);
       border:1px solid rgba(255,255,255,.12);
-      background:
-        radial-gradient(520px 160px at 12% 18%, rgba(92,225,212,.12), transparent 55%),
-        radial-gradient(520px 160px at 92% 26%, rgba(255,101,0,.11), transparent 55%),
-        rgba(0,0,0,.12);
+      background:var(--card);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(12px);
       padding:22px;
     }
 
@@ -445,9 +437,7 @@
     <div class="topbar-inner">
       <div class="brand">
         <a class="logo-link" href="index.html" aria-label="Sheldon Global home">
-          <span class="mark" aria-hidden="true">
-            <img src="assets/sheldon_global_logo.png" alt="" />
-          </span>
+          <img class="top-logo" src="assets/sheldon_global_logo.png" alt="Sheldon Global logo" />
           <span class="brand-title">
             <span class="name">Sheldon Global</span>
             <span class="sub">Healthcare IT • Integration • Interoperability</span>
@@ -469,19 +459,12 @@
   <!-- HERO -->
   <section id="top">
     <div class="section-inner">
-      <div class="kicker"><span class="dot"></span> Practical consulting for complex healthcare systems</div>
       <h1 class="headline">Build reliable platforms for care delivery—without the chaos.</h1>
       <p class="subhead">
         Sheldon Global helps health systems and enterprise teams modernize architecture, streamline interoperability,
         improve data quality, and automate operational workflows. The goal is simple: fewer surprises, cleaner integrations,
         and systems you can trust in production.
       </p>
-
-      <div class="tag-row" aria-label="Capabilities">
-        <span class="tag"><span class="sep" aria-hidden="true"></span><span>Solution architecture</span></span>
-        <span class="tag alt"><span class="sep" aria-hidden="true"></span><span>Integration (HL7/FHIR/APIs)</span></span>
-        <span class="tag"><span class="sep" aria-hidden="true"></span><span>Data quality & automation</span></span>
-      </div>
 
       <div class="cta-row">
         <a class="btn primary" href="mailto:info@sheldonglobal.org?subject=Sheldon%20Global%20Consult%20Request&body=Hi%20Sean%2C%0A%0AI%E2%80%99d%20like%20to%20discuss%20a%20consult.%20Here%E2%80%99s%20what%20we%E2%80%99re%20working%20on%3A%0A%0A-%20Organization%3A%20%0A-%20Problem%20area%3A%20%0A-%20Systems%2Fvendors%3A%20%0A-%20Timeline%3A%20%0A-%20Best%20contact%3A%20%0A%0AThanks!">Request a consult</a>
