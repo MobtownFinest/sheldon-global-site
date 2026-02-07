@@ -77,6 +77,10 @@
       filter: drop-shadow(0 20px 60px rgba(0,0,0,.55));
     }
 
+    .logo-link{display:inline-block;}
+    .logo-link:focus-visible{outline:2px solid rgba(92,225,212,.55); outline-offset:6px; border-radius:14px;}
+    .logo-link:hover{filter:brightness(1.03);}
+
     /* ===== NAV: remove outline boxes; make glow/underline more prominent ===== */
     .top-nav{
       grid-column:2;
@@ -393,7 +397,7 @@
 
     .contact-row{
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       gap:10px;
       padding:10px 10px;
       border-radius:14px;
@@ -431,9 +435,11 @@
     .contact-text div{
       font-size:13px;
       color:rgba(255,255,255,.88);
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
+      white-space:normal;
+      overflow:visible;
+      text-overflow:clip;
+      word-break:break-word;
+      line-height:1.35;
     }
 
     @media (max-width:900px){
@@ -461,7 +467,9 @@
 
     <header class="site-header">
       <div class="brand-block">
-        <img class="logo-hero" src="assets/sheldon_global_logo.png" alt="Sheldon Global logo" />
+        <a class="logo-link" href="index.html" aria-label="Sheldon Global home">
+          <img class="logo-hero" src="assets/sheldon_global_logo.png" alt="Sheldon Global logo" />
+        </a>
       </div>
 
       <nav class="top-nav" aria-label="Primary navigation">
@@ -486,12 +494,13 @@
 
         <h2>Build reliable, scalable, and secure platforms—without the chaos.</h2>
         <p>
-          Sheldon Global helps teams modernize their architecture, streamline integrations,
-          improve data quality, and automate the boring stuff (so your people can focus on impact).
+          Sheldon Global supports healthcare and enterprise teams with architecture modernization,
+          interoperability-focused integrations (HL7/FHIR/APIs), data quality improvements, and automation—built to be reliable in real-world operations.
         </p>
 
         <div class="cta-row">
-          <a class="btn primary" href="#contact">Request a consult</a>
+          <a class="btn primary" href="mailto:info@sheldonglobal.org?subject=Sheldon%20Global%20Consult%20Request&body=Hi%20Sean%2C%0A%0AI%E2%80%99d%20like%20to%20discuss%20a%20consult.%20Here%E2%80%99s%20what%20we%E2%80%99re%20working%20on%3A%0A%0A-%20Organization%3A%20%0A-%20Problem%20area%3A%20%0A-%20Systems%2Fvendors%3A%20%0A-%20Timeline%3A%20%0A-%20Best%20contact%3A%20%0A%0AThanks!">Request a consult</a>
+          <a class="btn" href="#contact">Contact details</a>
           <a class="btn" href="#services">See services</a>
         </div>
 
